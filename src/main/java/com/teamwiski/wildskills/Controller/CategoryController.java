@@ -23,28 +23,28 @@ import com.teamwiski.wildskills.Service.CategoryService;
 @CrossOrigin(origins = "http://localhost:5173")
 public class CategoryController {
     @Autowired
-    CategoryService cserv;
+    CategoryService categoryserv;
 
     //Create
     @PostMapping("/postCategoryRecord")
     public CategoryEntity postCategoryRecord(@RequestBody CategoryEntity category){
-        return cserv.postCategoryRecord(category);
+        return categoryserv.postCategoryRecord(category);
     }
     //Read
     @GetMapping("/getAllCategory")
     public List<CategoryEntity>getAllCategory(){
-        return cserv.getAllCategory();
+        return categoryserv.getAllCategory();
     }
     //Update
     @PutMapping("/putCategoryDetails")
     public CategoryEntity putCategoryDetails(@RequestParam int id, @RequestBody CategoryEntity newCategoryDetails ){
-        return cserv.putCategoryDetails(id,newCategoryDetails);
+        return categoryserv.putCategoryDetails(id,newCategoryDetails);
     }
-
+    //UPDATE
     //Delete
     @DeleteMapping("/deleteCourseDetails/{id}")
     public String deleteCategory(@PathVariable int id){
-        return cserv.deleteCategory(id);
+        return categoryserv.deleteCategory(id);
     }
 
 }
