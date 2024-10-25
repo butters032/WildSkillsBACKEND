@@ -1,5 +1,7 @@
 package com.teamwiski.wildskills.Entity;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,20 +16,30 @@ public class StudentEntity {
     private int studentId;
 
     private String name;
-    private String birthday;
+    private Date birthdate;
     private int age;
     private String email;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public StudentEntity(){
         super();
     }
 
-    public StudentEntity(int studentId,String name,String birthday,int age,String email){
+    public StudentEntity(int studentId,String name,Date birthdate,int age,String email, String password){
         this.studentId=studentId;
         this.name=name;
-        this.birthday=birthday;
+        this.birthdate=birthdate;
         this.age=age;
         this.email=email;
+        this.password=password;
     }
 
     public int getStudentId() {
@@ -46,12 +58,12 @@ public class StudentEntity {
         this.name = name;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public Date getBirthdate() {
+        return birthdate;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
 
     public int getAge() {

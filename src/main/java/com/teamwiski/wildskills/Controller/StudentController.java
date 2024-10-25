@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping(method=RequestMethod.GET,path="/api/student")
+@RequestMapping(method=RequestMethod.GET,path="/api/wildSkills/student")
 @CrossOrigin(origins = "http://localhost:5173")
 public class StudentController {
     @Autowired
