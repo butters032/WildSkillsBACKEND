@@ -14,15 +14,17 @@ public class ReviewEntity {
     private int reviewId;
 
     private double rating;
+    private String comment;
 
     public ReviewEntity() {
         super();
     }
 
-    public ReviewEntity(int reviewId, double rating) {
+    public ReviewEntity(int reviewId, double rating, String comment) {
         super();
         this.reviewId = reviewId;
         this.rating = rating;
+        this.comment = comment;
     }
 
     public int getReviewId() {
@@ -39,5 +41,13 @@ public class ReviewEntity {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

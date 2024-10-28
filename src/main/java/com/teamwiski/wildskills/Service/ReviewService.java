@@ -36,8 +36,8 @@ public class ReviewService {
         ReviewEntity review = new ReviewEntity();
         try {
             review = rrepo.findById(id).get();
-
             review.setRating(newReviewDetails.getRating());
+            review.setComment(newReviewDetails.getComment());
         } catch (NoSuchElementException nex) {
             throw new NameNotFoundException("Review " + id + " not found");
         } finally {
