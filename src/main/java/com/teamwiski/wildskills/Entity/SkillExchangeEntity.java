@@ -1,12 +1,17 @@
 package com.teamwiski.wildskills.Entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tblSkillExchange")
@@ -21,6 +26,11 @@ public class SkillExchangeEntity {
 	private String title; //Title sa exchange para header sa exchange menu
 	private LocalDateTime scheduledStart;
 	private LocalDateTime scheduledEnd;
+
+	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn (name = "student_id")
+	@JsonIgnore
+	private StudentEntity student;
 	
 	public SkillExchangeEntity() {
 		super();
@@ -68,6 +78,14 @@ public class SkillExchangeEntity {
 
 	public void setScheduledEnd(LocalDateTime scheduledEnd) {
 		this.scheduledEnd = scheduledEnd;
+	}
+
+	public StudentEntity getStudent() {
+		return student;
+	}
+
+	public void setStudent(StudentEntity student) {
+		this.student = student;
 	}
 	
 }

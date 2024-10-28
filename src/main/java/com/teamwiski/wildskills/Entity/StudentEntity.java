@@ -1,11 +1,17 @@
 package com.teamwiski.wildskills.Entity;
 
 import java.util.Date;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,6 +26,10 @@ public class StudentEntity {
     private int age;
     private String email;
     private String password;
+
+    @OneToMany (fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
+    private List<SkillExchangeEntity> exchanges;
+    @JsonIgnore
 
     public String getPassword() {
         return password;
