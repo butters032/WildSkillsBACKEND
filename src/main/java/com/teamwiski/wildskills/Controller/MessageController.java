@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping(method=RequestMethod.GET,path="/api/message")
-@CrossOrigin(origins = "http://localhost:5173/")
 public class MessageController {
     @Autowired
     MessageService mserv;
