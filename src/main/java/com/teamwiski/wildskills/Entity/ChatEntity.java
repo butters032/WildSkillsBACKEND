@@ -1,10 +1,6 @@
 package com.teamwiski.wildskills.Entity;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import org.hibernate.query.NativeQuery.ReturnableResultNode;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
