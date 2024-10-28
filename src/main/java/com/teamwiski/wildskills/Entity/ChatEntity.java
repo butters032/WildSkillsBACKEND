@@ -1,9 +1,16 @@
 package com.teamwiski.wildskills.Entity;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import org.hibernate.query.NativeQuery.ReturnableResultNode;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,13 +21,13 @@ public class ChatEntity{
     private int chatId;
 
     private String message;
-    private String timeStamp;
+    private LocalDateTime timeStamp;
 
     public ChatEntity(){
         super();
     }
 
-    public ChatEntity(int chatId, String message, String timeStamp){
+    public ChatEntity(int chatId, String message, LocalDateTime timeStamp){
         super();
         this.chatId=chatId;
         this.message=message;
@@ -39,11 +46,12 @@ public class ChatEntity{
         this.message=message;
     }
 
-    public String getTimeStamp(){
-        return timeStamp;
+    public LocalDateTime getTimeStamp() {
+    	return timeStamp;
     }
-
-    public void setTimeStamp(String timeStamp){
-        this.timeStamp=timeStamp;
+    
+    @PrePersist
+    public void setTimeStamp(){
+        this.timeStamp=LocalDateTime.now();
     }
 }
