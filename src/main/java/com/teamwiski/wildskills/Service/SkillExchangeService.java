@@ -41,7 +41,9 @@ public class SkillExchangeService {
 			
 			//if ID is found, the user can set new values to all fields
 			skillExchange.setStatus(newSkillExchange.getStatus());
-			skillExchange.setDescription(newSkillExchange.getDescription());
+			skillExchange.setTitle(newSkillExchange.getTitle());
+			skillExchange.setScheduledStart(newSkillExchange.getScheduledStart());
+			skillExchange.setScheduledEnd(newSkillExchange.getScheduledEnd());
 			
 		} catch(NoSuchElementException nex) {
 			throw new NameNotFoundException ("Skill Exchange " + id + "not found");

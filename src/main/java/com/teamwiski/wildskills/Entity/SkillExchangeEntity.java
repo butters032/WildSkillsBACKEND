@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tblSkillExchange")
@@ -17,16 +18,20 @@ public class SkillExchangeEntity {
 	
 	@Column
 	private String status; //Completed - Cancelled - Ongoing
-	private String description; //Description sa exchange para header sa exchange menu
+	private String title; //Title sa exchange para header sa exchange menu
+	private LocalDateTime scheduledStart;
+	private LocalDateTime scheduledEnd;
 	
 	public SkillExchangeEntity() {
 		super();
 	}
 	
-	public SkillExchangeEntity(int SkillExchangeID, String status, String description) {
+	public SkillExchangeEntity(int SkillExchangeID, String status, String title, LocalDateTime scheduledStart, LocalDateTime scheduledEnd) {
 		this.SkillExchangeID = SkillExchangeID;
 		this.status = status;
-		this.description = description;
+		this.title = title;
+		this.scheduledStart = scheduledStart;
+		this.scheduledEnd = scheduledEnd;
 	}
 	
 	public int getSkillExchangeID() {
@@ -41,12 +46,28 @@ public class SkillExchangeEntity {
 		this.status = status;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public LocalDateTime getScheduledStart() {
+		return scheduledStart;
+	}
+
+	public void setScheduledStart(LocalDateTime scheduledStart) {
+		this.scheduledStart = scheduledStart;
+	}
+
+	public LocalDateTime getScheduledEnd() {
+		return scheduledEnd;
+	}
+
+	public void setScheduledEnd(LocalDateTime scheduledEnd) {
+		this.scheduledEnd = scheduledEnd;
 	}
 	
 }
