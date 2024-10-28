@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping(method=RequestMethod.GET,path="/api/message")
+@RequestMapping(method=RequestMethod.GET,path="/api/wildSkills/message")
 public class MessageController {
     @Autowired
     MessageService mserv;

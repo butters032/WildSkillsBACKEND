@@ -18,7 +18,7 @@ import com.teamwiski.wildskills.Entity.ChatEntity;
 import com.teamwiski.wildskills.Service.ChatService;
 
 @RestController
-@RequestMapping(method=RequestMethod.GET,path="/api/chat")
+@RequestMapping(method=RequestMethod.GET,path="/api/wildSkills/chat")
 public class ChatController {
     @Autowired
     ChatService charv;

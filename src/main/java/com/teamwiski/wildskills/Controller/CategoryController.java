@@ -19,7 +19,7 @@ import com.teamwiski.wildskills.Entity.CategoryEntity;
 import com.teamwiski.wildskills.Service.CategoryService;
 
 @RestController
-@RequestMapping(method=RequestMethod.GET,path="/api/category")
+@RequestMapping(method=RequestMethod.GET,path="/api/wildSkills/category")
 @CrossOrigin(origins = "http://localhost:5173")
 public class CategoryController {
     @Autowired
