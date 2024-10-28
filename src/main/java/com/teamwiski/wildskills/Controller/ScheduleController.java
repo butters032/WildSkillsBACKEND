@@ -1,4 +1,4 @@
-package com.teamwiski.wildskills.controller;
+package com.teamwiski.wildskills.Controller;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.teamwiski.wildskills.entity.ScheduleEntity;
-import com.teamwiski.wildskills.service.ScheduleService;
+import com.teamwiski.wildskills.Entity.ScheduleEntity;
+import com.teamwiski.wildskills.Service.ScheduleService;
 
 @RestController
 @RequestMapping(method = RequestMethod.GET, path = "/api/wildSkills/skillExchange")

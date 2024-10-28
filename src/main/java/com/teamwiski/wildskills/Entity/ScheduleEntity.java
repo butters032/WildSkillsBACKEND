@@ -1,4 +1,4 @@
-package com.teamwiski.wildskills.entity;
+package com.teamwiski.wildskills.Entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

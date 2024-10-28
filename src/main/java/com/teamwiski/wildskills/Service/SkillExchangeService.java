@@ -1,4 +1,4 @@
-package com.teamwiski.wildskills.service;
+package com.teamwiski.wildskills.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -8,8 +8,8 @@ import javax.naming.NameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.teamwiski.wildskills.entity.SkillExchangeEntity;
-import com.teamwiski.wildskills.repository.SkillExchangeRepository;
+import com.teamwiski.wildskills.Entity.SkillExchangeEntity;
+import com.teamwiski.wildskills.Repository.SkillExchangeRepository;
 
 @Service
 public class SkillExchangeService {

@@ -1,4 +1,4 @@
-package com.teamwiski.wildskills.controller;
+package com.teamwiski.wildskills.Controller;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.teamwiski.wildskills.entity.SkillExchangeEntity;
-import com.teamwiski.wildskills.service.SkillExchangeService;
+import com.teamwiski.wildskills.Entity.SkillExchangeEntity;
+import com.teamwiski.wildskills.Service.SkillExchangeService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")

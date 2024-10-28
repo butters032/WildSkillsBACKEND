@@ -1,4 +1,4 @@
-package com.teamwiski.wildskills.service;
+package com.teamwiski.wildskills.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -8,8 +8,8 @@ import javax.naming.NameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.teamwiski.wildskills.entity.ScheduleEntity;
-import com.teamwiski.wildskills.repository.ScheduleRepository;
+import com.teamwiski.wildskills.Entity.ScheduleEntity;
+import com.teamwiski.wildskills.Repository.ScheduleRepository;
 
 @Service
 public class ScheduleService {
