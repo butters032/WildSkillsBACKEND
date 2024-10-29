@@ -11,8 +11,14 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+// Changes:
+// Gi connect and review ug student
+// gi add ang list sa review sulod sa constructor
+// pero wala gihapon mugana
 
 @Entity
 @Table(name="tblstudent")
@@ -28,8 +34,12 @@ public class StudentEntity {
     private String password;
 
     @OneToMany (fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
-    private List<SkillExchangeEntity> exchanges;
     @JsonIgnore
+    private List<SkillExchangeEntity> exchanges;
+    
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "student", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ReviewEntity> reviews;
 
     public String getPassword() {
         return password;
@@ -43,13 +53,15 @@ public class StudentEntity {
         super();
     }
 
-    public StudentEntity(int studentId,String name,Date birthdate,int age,String email, String password){
+    public StudentEntity(int studentId,String name,Date birthdate,int age,String email, String password, List<ReviewEntity> reviews){
         this.studentId=studentId;
         this.name=name;
         this.birthdate=birthdate;
         this.age=age;
         this.email=email;
         this.password=password;
+        
+        this.reviews = reviews;
     }
 
     public int getStudentId() {
