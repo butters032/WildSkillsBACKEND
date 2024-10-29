@@ -13,29 +13,36 @@ public class SkillOfferingEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int skillOfferingId;
 
-    private String status;
+    private String title;
+    private boolean isActive;
     private String description;
     public SkillOfferingEntity(){
         super();
     }
-    public SkillOfferingEntity(int skillOfferingId, String status, String description){
+    public SkillOfferingEntity(int skillOfferingId, String title, boolean isActive, String description){
         super();
         this.skillOfferingId=skillOfferingId;
-        this.status=status;
+        this.title=title;
+        this.isActive=isActive;
         this.description=description;
     }
-
     public int getSkillOfferingId(){
         return skillOfferingId;
     }
     public void setSkillOfferingId(int skillOfferingId){
         this.skillOfferingId=skillOfferingId;
     }
-    public String getStatus(){
-        return status;
+    public String getTitle(){
+        return title;
     }
-    public void setStatus(String status){
-        this.status=status;
+    public void setTitle(String title){
+        this.title=title;
+    }
+    public boolean getIsActive(){
+        return isActive;
+    }
+    public void setIsActive(boolean isActive){
+        this.isActive=isActive;
     }
     public String getDescription(){
         return description;
