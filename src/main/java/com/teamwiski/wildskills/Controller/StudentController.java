@@ -38,6 +38,11 @@ public class StudentController {
         return studServ.getAllStudentRecord();
     }
 
+    @GetMapping("/getUserStudentRecord")
+    public List<StudentEntity>getUserStudentRecord(@RequestParam int id){
+        return studServ.getUserStudentRecord(id);
+    }
+
     //Update
     @PutMapping("/putStudentRecord")
     public StudentEntity putStudentRecord(@RequestParam int id, @RequestBody StudentEntity newStudentRecord){

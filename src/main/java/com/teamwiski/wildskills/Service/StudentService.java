@@ -30,6 +30,10 @@ public class StudentService {
         return studRepo.findAll();
     }
 
+    public List<StudentEntity>getUserStudentRecord(int studId){
+        return studRepo.findById(studId);
+    }
+
     //Update
     @SuppressWarnings("finally")
     public StudentEntity putStudentRecord(int studId, StudentEntity newStudent){
