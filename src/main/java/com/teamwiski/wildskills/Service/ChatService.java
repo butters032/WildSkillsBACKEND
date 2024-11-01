@@ -36,9 +36,6 @@ public class ChatService {
         ChatEntity chat=new ChatEntity();
         try {           
             chat=chapo.findById(id).get();
-
-            chat.setMessage(newChatDetails.getMessage());
-            chat.getMessage();
         } catch (NoSuchElementException nex) {
             throw new NameNotFoundException("Chat" + id + "not found");
         }finally{

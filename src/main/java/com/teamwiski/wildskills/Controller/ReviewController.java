@@ -19,7 +19,7 @@ import com.teamwiski.wildskills.Entity.ReviewEntity;
 import com.teamwiski.wildskills.Service.ReviewService;
 
 @RestController
-@RequestMapping(method = RequestMethod.GET, path = "/api/review")
+@RequestMapping(method = RequestMethod.GET, path = "/api/wildSkills/review")
 @CrossOrigin(origins = "http://localhost:5173")
 public class ReviewController {
     @Autowired

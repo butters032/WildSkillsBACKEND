@@ -3,7 +3,6 @@
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +18,7 @@ import com.teamwiski.wildskills.Entity.ChatEntity;
 import com.teamwiski.wildskills.Service.ChatService;
 
 @RestController
-@RequestMapping(method=RequestMethod.GET,path="/api/chat")
-@CrossOrigin(origins = "http://localhost:5173/")
+@RequestMapping(method=RequestMethod.GET,path="/api/wildSkills/chat")
 public class ChatController {
     @Autowired
     ChatService charv;
@@ -40,7 +38,7 @@ public class ChatController {
     public ChatEntity putChatDetails(@RequestParam int id, @RequestBody ChatEntity newChatDetails ){
         return charv.putChatDetails(id,newChatDetails);
     }
-    //UPDATE
+    
     //Delete
     @DeleteMapping("/deleteChatDetails/{id}")
     public String deleteChat(@PathVariable int id){

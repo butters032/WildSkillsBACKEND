@@ -19,7 +19,7 @@ import com.teamwiski.wildskills.Entity.SkillOfferingEntity;
 import com.teamwiski.wildskills.Service.SkillOfferingService;
 
 @RestController
-@RequestMapping(method=RequestMethod.GET,path="/api/skilloffering")
+@RequestMapping(method=RequestMethod.GET,path="/api/wildSkills/skilloffering")
 @CrossOrigin(origins = "http://localhost:5173")
 public class SkillOfferingController {
     @Autowired
