@@ -36,7 +36,7 @@ public class SkillOfferingService {
         try {           
             skilloffering=skillrepo.findById(id).get();            
             
-            skilloffering.setStatus(newSkillOfferingDetails.getStatus());
+            skilloffering.setIsActive(newSkillOfferingDetails.getIsActive());
             skilloffering.setDescription(newSkillOfferingDetails.getDescription());
         } catch (NoSuchElementException nex) {
             throw new NameNotFoundException("Skill Offering" + id + "not found");
