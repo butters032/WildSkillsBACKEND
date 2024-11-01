@@ -2,6 +2,7 @@ package com.teamwiski.wildskills.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import javax.naming.NameNotFoundException;
 
@@ -30,8 +31,12 @@ public class StudentService {
         return studRepo.findAll();
     }
 
-    public List<StudentEntity>getUserStudentRecord(int studId){
-        return studRepo.findById(studId);
+    public StudentEntity getUserStudentRecord(int studId){
+        return studRepo.findById(studId).get();
+    }
+
+    public boolean checkEmailExists(String email){
+        return true;
     }
 
     //Update

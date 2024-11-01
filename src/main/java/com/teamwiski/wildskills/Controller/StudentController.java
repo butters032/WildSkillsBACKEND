@@ -39,7 +39,7 @@ public class StudentController {
     }
 
     @GetMapping("/getUserStudentRecord")
-    public List<StudentEntity>getUserStudentRecord(@RequestParam int id){
+    public StudentEntity getUserStudentRecord(@RequestParam int id){
         return studServ.getUserStudentRecord(id);
     }
 
