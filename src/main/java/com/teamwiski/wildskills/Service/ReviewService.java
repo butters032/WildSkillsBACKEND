@@ -29,6 +29,11 @@ public class ReviewService {
     public List<ReviewEntity> getAllReviews() {
         return rrepo.findAll();
     }
+    
+    public ReviewEntity getReviewById(int id) {
+        return rrepo.findById(id)
+            .orElseThrow(() -> new RuntimeException("Review not found with ID: " + id));
+    }
 
     // Update
     @SuppressWarnings("finally")

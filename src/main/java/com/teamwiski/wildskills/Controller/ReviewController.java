@@ -36,10 +36,16 @@ public class ReviewController {
     public List<ReviewEntity> getAllReviews() {
         return reviewServ.getAllReviews();
     }
+    
+    // Read by ID
+    @GetMapping("/getReviewById/{id}")
+    public ReviewEntity getReviewById(@PathVariable int id) {
+        return reviewServ.getReviewById(id);
+    }
 
     // Update
-    @PutMapping("/putReviewDetails")
-    public ReviewEntity putReviewDetails(@RequestParam int id, @RequestBody ReviewEntity newReviewDetails) {
+    @PutMapping("/putReviewDetails/{id}")
+    public ReviewEntity putReviewDetails(@PathVariable int id, @RequestBody ReviewEntity newReviewDetails) {
         return reviewServ.putReviewDetails(id, newReviewDetails);
     }
 
