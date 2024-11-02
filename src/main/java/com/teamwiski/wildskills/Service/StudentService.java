@@ -1,6 +1,8 @@
 package com.teamwiski.wildskills.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -36,8 +38,28 @@ public class StudentService {
     }
 
     public boolean checkEmailExists(String email){
-        return true;
+        Optional<StudentEntity> student = studRepo.findByEmail(email);
+        return student.isPresent();
     }
+
+    public Map<String, Object> login(String email, String password) {
+    Optional<StudentEntity> studentOpt = studRepo.findByEmail(email);
+    if (studentOpt.isPresent()) {
+        StudentEntity student = studentOpt.get();
+        if (student.getPassword().equals(password)) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "Login Successful");
+            response.put("studentId", student.getStudentId());
+            return response;
+        } else {
+            throw new IllegalArgumentException("Invalid Password");
+        }
+    } else {
+        throw new NoSuchElementException("Email not found");
+    }
+}
+
+
 
     //Update
     @SuppressWarnings("finally")
@@ -45,6 +67,11 @@ public class StudentService {
         StudentEntity student = new StudentEntity();
         try{
             student=studRepo.findById(studId).get();
+            student.setName(newStudent.getName());
+            student.setBirthdate(newStudent.getBirthdate());
+            student.setEmail(newStudent.getEmail());
+            student.setPassword(newStudent.getPassword());
+            student.setGender(newStudent.getGender());
         }catch(NoSuchElementException n){
             throw new NameNotFoundException("Student " + studId+ " not found.");
         }finally{
@@ -52,6 +79,8 @@ public class StudentService {
         }
 
     }
+    
+
 
     //Delete
     public String deleteStudentRecord(int studId){

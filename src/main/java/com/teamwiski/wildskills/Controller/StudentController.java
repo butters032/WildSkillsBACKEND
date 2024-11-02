@@ -1,6 +1,10 @@
 package com.teamwiski.wildskills.Controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,6 +47,21 @@ public class StudentController {
         return studServ.getUserStudentRecord(id);
     }
 
+    @GetMapping("/getCheckEmailExist")
+    public boolean checkEmailExists(@RequestParam String email){
+        return studServ.checkEmailExists(email);
+    }
+
+
+    @PostMapping("/login")
+    @CrossOrigin(origins = "http://localhost:5173")
+    public Map<String, Object> login(@RequestBody StudentEntity student) {
+        return studServ.login(student.getEmail(), student.getPassword());
+    }
+
+
+    
+
     //Update
     @PutMapping("/putStudentRecord")
     public StudentEntity putStudentRecord(@RequestParam int id, @RequestBody StudentEntity newStudentRecord){
@@ -51,6 +70,7 @@ public class StudentController {
 
     //Delete
     @DeleteMapping("/deleteStudentRecord/{id}")
+    @CrossOrigin(origins = "http://localhost:5173")
     public String deleteStudentRecord(@PathVariable int id){
         return studServ.deleteStudentRecord(id);
     }
