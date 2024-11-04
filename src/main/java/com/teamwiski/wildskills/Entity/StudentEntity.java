@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -33,16 +34,14 @@ public class StudentEntity {
     private String email;
     private String password;
     private String gender;
-
-
-    @OneToMany (fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<SkillExchangeEntity> exchanges;
     
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "student", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<ReviewEntity> reviews;
 
+    @OneToMany (fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
+    private List<SkillExchangeEntity> exchanges;
+    
     public String getPassword() {
         return password;
     }
