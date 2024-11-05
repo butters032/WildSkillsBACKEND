@@ -1,5 +1,7 @@
 package com.teamwiski.wildskills.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,8 +23,9 @@ public class SkillOfferingEntity {
     private String description;
     private String skills;  
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name="categoryID")
+    @JsonBackReference
     
     private CategoryEntity category; 
 
