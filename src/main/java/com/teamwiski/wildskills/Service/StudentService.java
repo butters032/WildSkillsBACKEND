@@ -1,5 +1,6 @@
 package com.teamwiski.wildskills.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,9 @@ import javax.naming.NameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.teamwiski.wildskills.Entity.AuthenticationEntity;
 import com.teamwiski.wildskills.Entity.StudentEntity;
+import com.teamwiski.wildskills.Repository.AuthenticationRepository;
 import com.teamwiski.wildskills.Repository.StudentRepository;
 
 @Service
@@ -19,12 +22,23 @@ public class StudentService {
     @Autowired
     StudentRepository studRepo;
 
+    @Autowired
+    AuthenticationRepository authRepo;
+
     public StudentService(){
         super();
     }
     
     //Create
     public StudentEntity postStudentRecord(StudentEntity student){
+        AuthenticationEntity authEntity = new AuthenticationEntity(); 
+        authEntity.setAuthStatus(false);
+        authEntity.setSessionDurationOn(LocalDateTime.now()); 
+        authEntity.setSessionDurationEnd(LocalDateTime.now().plusHours(1));
+
+        student.setAuthKey(authEntity);
+        authRepo.save(authEntity);
+        
         return studRepo.save(student);
     }
 
@@ -50,6 +64,7 @@ public class StudentService {
             Map<String, Object> response = new HashMap<>();
             response.put("status", "Login Successful");
             response.put("studentId", student.getStudentId());
+            response.put("authId", student.getAuthKey());
             return response;
         } else {
             throw new IllegalArgumentException("Invalid Password");

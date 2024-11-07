@@ -1,10 +1,9 @@
 package com.teamwiski.wildskills.Entity;
 
-import java.util.List;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -13,7 +12,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 // Changes:
@@ -41,6 +42,14 @@ public class StudentEntity {
 
     @OneToMany (fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
     private List<SkillExchangeEntity> exchanges;
+
+
+    //AUTHENTICATION & SESSION
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="authId", referencedColumnName="authId")
+    @JsonManagedReference
+    private AuthenticationEntity authKey;
+
     
     public String getPassword() {
         return password;
@@ -133,6 +142,14 @@ public class StudentEntity {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public AuthenticationEntity getAuthKey() {
+        return authKey;
+    }
+
+    public void setAuthKey(AuthenticationEntity authKey) {
+        this.authKey = authKey;
     }
 
 }
