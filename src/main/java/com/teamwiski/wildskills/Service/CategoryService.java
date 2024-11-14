@@ -2,6 +2,7 @@ package com.teamwiski.wildskills.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import javax.naming.NameNotFoundException;
 
@@ -27,6 +28,14 @@ public class CategoryService {
     //Read
     public List<CategoryEntity>getAllCategory(){
         return crepo.findAll();
+    }
+    // Get Category by ID
+    public CategoryEntity getCategoryById(int id) {
+        Optional<CategoryEntity> category = crepo.findById(id);
+        if (category.isPresent()){
+            return category.get();
+        }
+                return null;        
     }
 
     //Update

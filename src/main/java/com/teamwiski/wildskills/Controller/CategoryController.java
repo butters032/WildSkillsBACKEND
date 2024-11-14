@@ -35,12 +35,18 @@ public class CategoryController {
     public List<CategoryEntity>getAllCategory(){
         return categoryserv.getAllCategory();
     }
+
+    //Read by ID
+    @GetMapping("/getCategory/{id}")
+    public CategoryEntity getCategoryById(@PathVariable int id) {
+        return categoryserv.getCategoryById(id); 
+    }
     //Update
     @PutMapping("/putCategoryDetails")
     public CategoryEntity putCategoryDetails(@RequestParam int id, @RequestBody CategoryEntity newCategoryDetails ){
         return categoryserv.putCategoryDetails(id,newCategoryDetails);
     }
-    //UPDATE
+    
     //Delete
     @DeleteMapping("/deleteCourseDetails/{id}")
     public String deleteCategory(@PathVariable int id){

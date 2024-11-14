@@ -2,7 +2,6 @@ package com.teamwiski.wildskills.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import javax.naming.NameNotFoundException;
 
@@ -26,32 +25,9 @@ public class SkillOfferingService {
         super();
     }
     //Create
-    public SkillOfferingEntity postSkillOfferingRecord(SkillOfferingEntity skillOffering) {
-        // Check if the category information is provided
-        if (skillOffering.getCategory() != null && skillOffering.getCategory().getCategoryId() != 0) {
-            int categoryId = skillOffering.getCategory().getCategoryId();
-    
-            // Attempt to fetch the existing category from the database
-            Optional<CategoryEntity> existingCategoryOpt = crepo.findById(categoryId);
-    
-            if (existingCategoryOpt.isPresent()) {
-                // Set the fetched category to skill offering if found
-                skillOffering.setCategory(existingCategoryOpt.get());
-            } else {
-                throw new RuntimeException("Category with ID " + categoryId + " not found in the database.");
-            }
-        } else {
-            // Provide more information on the invalid input
-            throw new IllegalArgumentException("The provided category ID is invalid: " +
-                    (skillOffering.getCategory() == null ? "null category" : "categoryId=" + skillOffering.getCategory().getCategoryId()));
-        }
-    
-        // Save the skill offering with the associated category
+    public SkillOfferingEntity postSkillOfferingRecord(SkillOfferingEntity skillOffering) {       
         return skillrepo.save(skillOffering);
-    }
-    
-    
-    
+    }    
     //Read
     public List<SkillOfferingEntity>getAllSkillOfferingRecord(){
         return skillrepo.findAll();

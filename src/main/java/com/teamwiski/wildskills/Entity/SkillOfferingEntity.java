@@ -33,14 +33,13 @@ public class SkillOfferingEntity {
         super();
     }
 
-    public SkillOfferingEntity(int skillOfferingId, String title, boolean isActive, String description, String skills, CategoryEntity category) {
+    public SkillOfferingEntity(int skillOfferingId, String title, boolean isActive, String description, String skills) {
         super();
         this.skillOfferingId = skillOfferingId;
         this.title = title;
         this.isActive = isActive;
         this.description = description;
-        this.skills = skills;
-        this.category = category;
+        this.skills = skills;        
     }
 
     public int getSkillOfferingId() {
