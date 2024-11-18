@@ -1,6 +1,8 @@
 package com.teamwiski.wildskills.Controller;
 
+import java.lang.foreign.Linker.Option;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -50,4 +52,33 @@ public class SkillExchangeController {
 		return sserv.deleteSkillExchange(id);
 	}
 	
+	//Read all SkillExchange by Student
+	@GetMapping("/student/{id}")
+	public List<SkillExchangeEntity> getAllSkillExchange(@PathVariable int id) {
+		return sserv.getAllSkillExchange(id);
+	}
+
+	//Read SkillExchange by Student
+	@GetMapping("/student/{studentId}/exchange/{id}")
+	public SkillExchangeEntity getSkillExchange(@PathVariable int id) {
+		return sserv.getSkillExchange(id);
+	}
+
+	//Create SkillExchange by Student
+	@PostMapping("/student/{studentId}/postSkillExchange")
+	public SkillExchangeEntity postSkillExchange(@RequestBody SkillExchangeEntity skillExchange, @PathVariable int studentId) {
+		return sserv.postSkillExchange(skillExchange, studentId);
+	}
+
+	//Update SkillExchange by Student
+	@PutMapping("/student/{studentId}/putSkillExchangeDetails")
+	public SkillExchangeEntity putSkillExchange(@RequestParam int id, @RequestBody SkillExchangeEntity newSkillExchange, @PathVariable int studentId) {
+		return sserv.putSkillExchange(id, newSkillExchange, studentId);
+	}
+	
+	//Delete SkillExchange
+	@DeleteMapping("/student/{studentId}/deleteSkillExchange/{id}")
+	public String deleteSkillExchange(@PathVariable int studentId, @PathVariable int id) {
+		return sserv.deleteSkillExchange(id);
+	}
 }

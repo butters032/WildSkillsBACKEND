@@ -27,8 +27,8 @@ public class SkillExchangeEntity {
 	private LocalDateTime scheduledStart;
 	private LocalDateTime scheduledEnd;
 
-	@ManyToOne (cascade = CascadeType.ALL)
-	@JoinColumn (name = "student_id")
+	@ManyToOne /*(cascade = CascadeType.ALL)*/
+	@JoinColumn (name = "student_id", referencedColumnName = "student_id")
 	@JsonIgnore
 	private StudentEntity student;
 	
@@ -36,12 +36,13 @@ public class SkillExchangeEntity {
 		super();
 	}
 	
-	public SkillExchangeEntity(int SkillExchangeID, String status, String title, LocalDateTime scheduledStart, LocalDateTime scheduledEnd) {
+	public SkillExchangeEntity(int SkillExchangeID, String status, String title, LocalDateTime scheduledStart, LocalDateTime scheduledEnd, StudentEntity student) {
 		this.SkillExchangeID = SkillExchangeID;
 		this.status = status;
 		this.title = title;
 		this.scheduledStart = scheduledStart;
 		this.scheduledEnd = scheduledEnd;
+		this.student = student;
 	}
 	
 	public int getSkillExchangeID() {
