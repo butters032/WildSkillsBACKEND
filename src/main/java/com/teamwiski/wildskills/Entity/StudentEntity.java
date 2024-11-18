@@ -52,6 +52,11 @@ public class StudentEntity {
     @JsonManagedReference
     private AuthenticationEntity authKey;
 
+    //MESSAGES OR CHATS
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="chatId", referencedColumnName = "chatId")
+    @JsonManagedReference
+    private ChatEntity Chat;
     
     public String getPassword() {
         return password;
@@ -152,6 +157,14 @@ public class StudentEntity {
 
     public void setAuthKey(AuthenticationEntity authKey) {
         this.authKey = authKey;
+    }
+
+    public ChatEntity getChat() {
+        return Chat;
+    }
+
+    public void setChat(ChatEntity Chat){
+        this.Chat = Chat;
     }
 
 }
