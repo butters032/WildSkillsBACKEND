@@ -48,6 +48,12 @@ public class AuthenticationController{
     public AuthenticationEntity incrementAuthenticationDetails (@RequestParam int authId){
         return authServ.incrementAuthenticationDetails(authId);
     }
+
+    //mu update sa auth status
+    @PutMapping("/putUpdateAuthenticationStatus")
+    public AuthenticationEntity updateAuthenticationStatus (@RequestParam int authId){
+        return authServ.updateAuthenticationStatus(authId);
+    }
     
 
     //Delete

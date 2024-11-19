@@ -50,9 +50,17 @@ public class AuthenticationService{
     public AuthenticationEntity incrementAuthenticationDetails (int authId){
         AuthenticationEntity authEntity = new AuthenticationEntity(); 
         authEntity=authRepo.findById(authId).get();
-        authEntity.setAuthStatus(true);
+        //authEntity.setAuthStatus(true);
         authEntity.setSessionDurationOn(LocalDateTime.now()); 
         authEntity.setSessionDurationEnd(LocalDateTime.now().plusMinutes(5));
+
+        return authRepo.save(authEntity);
+    }
+
+    public AuthenticationEntity updateAuthenticationStatus (int authId){
+        AuthenticationEntity authEntity = new AuthenticationEntity(); 
+        authEntity=authRepo.findById(authId).get();
+        authEntity.setAuthStatus(true);
 
         return authRepo.save(authEntity);
     }

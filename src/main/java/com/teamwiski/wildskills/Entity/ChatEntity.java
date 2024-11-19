@@ -25,7 +25,7 @@ public class ChatEntity{
 
     @OneToMany (fetch = FetchType.LAZY, mappedBy = "chat", cascade = CascadeType.ALL)
     private List<MessageEntity> messages;
-    @JsonIgnore
+    //@JsonIgnore
 
     @OneToOne(mappedBy="Chat")
     @JsonBackReference
