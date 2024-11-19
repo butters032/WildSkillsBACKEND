@@ -61,4 +61,13 @@ public class ReviewEntity {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+	public StudentEntity getStudent() {
+		return student;
+	}
+
+	public void setStudent(StudentEntity student) {
+		this.student = student;
+	}
 }
+

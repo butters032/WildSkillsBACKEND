@@ -166,5 +166,13 @@ public class StudentEntity {
     public void setChat(ChatEntity Chat){
         this.Chat = Chat;
     }
+    
+    
+    public List<ReviewEntity> getReviews() {
+        return reviews;
+    }
 
+    public void setReviews(List<ReviewEntity> reviews) {
+        this.reviews = reviews;
+    }
 }

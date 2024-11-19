@@ -11,10 +11,16 @@ import org.springframework.stereotype.Service;
 import com.teamwiski.wildskills.Entity.ReviewEntity;
 import com.teamwiski.wildskills.Repository.ReviewRepository;
 
+import com.teamwiski.wildskills.Entity.StudentEntity;
+import com.teamwiski.wildskills.Repository.StudentRepository;
+
 @Service
 public class ReviewService {
     @Autowired
     ReviewRepository rrepo;
+    
+    @Autowired
+    StudentRepository srepo;
 
     public ReviewService() {
         super();
@@ -62,5 +68,23 @@ public class ReviewService {
         }
 
         return msg;
+    }
+    	
+    
+    // student - review functions
+    
+    // get ID
+    public List<ReviewEntity> getReviewsByStudentId(int studentId) {
+        StudentEntity student = srepo.findById(studentId)
+            .orElseThrow(() -> new RuntimeException("Student not found with ID: " + studentId));
+        return student.getReviews();
+    }
+
+    // Assign a review to a specific student
+    public ReviewEntity assignReviewToStudent(int studentId, ReviewEntity review) {
+        StudentEntity student = srepo.findById(studentId)
+            .orElseThrow(() -> new RuntimeException("Student not found with ID: " + studentId));
+        review.setStudent(student);
+        return rrepo.save(review);
     }
 }
