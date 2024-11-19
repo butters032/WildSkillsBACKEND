@@ -3,6 +3,7 @@ package com.teamwiski.wildskills.Entity;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -14,6 +15,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -53,10 +56,8 @@ public class StudentEntity {
     private AuthenticationEntity authKey;
 
     //MESSAGES OR CHATS
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="chatId", referencedColumnName = "chatId")
-    @JsonManagedReference
-    private ChatEntity Chat;
+    @ManyToMany(mappedBy = "student")
+    private List<ChatEntity> chat;
     
     public String getPassword() {
         return password;
@@ -101,6 +102,18 @@ public class StudentEntity {
         this.reviews = reviews;
     }
 
+    //CHAT CONSTRUCTOR
+    public StudentEntity(List<ChatEntity> chat, int studentId,String name,LocalDate birthdate,String email, String password, String gender){
+        this.studentId=studentId;
+        this.name=name;
+        this.birthdate=birthdate;
+        this.gender=gender;
+        this.email=email;
+        this.password=password;
+        //this.age=calculateAge(birthdate, LocalDate.now());
+
+        this.chat=chat;
+    }
 
     public int getStudentId() {
         return studentId;
@@ -159,12 +172,11 @@ public class StudentEntity {
         this.authKey = authKey;
     }
 
-    public ChatEntity getChat() {
-        return Chat;
+    public List<ChatEntity> getChat() {
+        return chat;
     }
 
-    public void setChat(ChatEntity Chat){
-        this.Chat = Chat;
-    }
-
+    public void setChat(List<ChatEntity> chat) {
+        this.chat = chat;
+    }    
 }

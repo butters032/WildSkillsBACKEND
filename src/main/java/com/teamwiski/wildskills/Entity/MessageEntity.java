@@ -27,7 +27,7 @@ public class MessageEntity {
     private LocalDateTime timeStamp;
 
     @ManyToOne (cascade = CascadeType.ALL)
-	@JoinColumn (name = "chatId")
+	@JoinColumn (name = "chat_Id")
 	@JsonIgnore
     private ChatEntity chat;
 

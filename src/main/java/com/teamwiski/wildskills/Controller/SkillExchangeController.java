@@ -1,8 +1,6 @@
 package com.teamwiski.wildskills.Controller;
 
-import java.lang.foreign.Linker.Option;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

@@ -2,16 +2,21 @@ package com.teamwiski.wildskills.Entity;
 
 
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -21,24 +26,36 @@ import jakarta.persistence.Table;
 public class ChatEntity{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column (name = "chat_id")
     private int chatId;
 
     @OneToMany (fetch = FetchType.LAZY, mappedBy = "chat", cascade = CascadeType.ALL)
-    private List<MessageEntity> messages;
+    private List<MessageEntity> messages;   
     @JsonIgnore
 
-    @OneToOne(mappedBy="Chat")
-    @JsonBackReference
-    private StudentEntity chats;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name="Chat_Student", 
+        joinColumns = {
+            @JoinColumn(name = "chat_id", referencedColumnName = "chat_id")
+        },
+        inverseJoinColumns = {
+            @JoinColumn(name = "student_id", referencedColumnName = "student_id")
+        }
+    )
+    private List<StudentEntity> student;
 
+    @OneToOne(mappedBy="chat")
+    @JsonBackReference
+    private SkillExchangeEntity cht;
 
     public ChatEntity(){
         super();
     }
 
-    public ChatEntity(int chatId){
+    public ChatEntity(int chatId, List<StudentEntity> student){
         super();
         this.chatId=chatId;
+        this.student = student;
     }
     public int getChatId(){
         return chatId;
@@ -47,11 +64,19 @@ public class ChatEntity{
         this.chatId=chatId;
     }
 
-    public StudentEntity getChats(){
-        return chats;
+    public List<StudentEntity> getStudent() {
+        return student;
     }
 
-    public void setChats(StudentEntity chats){
-        this.chats = chats;
+    public void setStudent(List<StudentEntity> student) {
+        this.student = student;
     }
+
+    public SkillExchangeEntity getCht() {
+        return cht;
+    }
+
+    public void setCht(SkillExchangeEntity cht) {
+        this.cht = cht;
+    } 
 }
