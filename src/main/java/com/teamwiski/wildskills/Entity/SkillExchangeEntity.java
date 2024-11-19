@@ -8,10 +8,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "tblSkillExchange")
@@ -31,7 +33,13 @@ public class SkillExchangeEntity {
 	@JoinColumn (name = "student_id", referencedColumnName = "student_id")
 	@JsonIgnore
 	private StudentEntity student;
-	
+
+	@OneToOne
+	@JoinColumn(name="chat_Id", referencedColumnName = "chat_Id")
+	@JsonManagedReference
+	private ChatEntity chat;
+
+
 	public SkillExchangeEntity() {
 		super();
 	}
@@ -87,6 +95,14 @@ public class SkillExchangeEntity {
 
 	public void setStudent(StudentEntity student) {
 		this.student = student;
+	}
+
+	public ChatEntity getChat() {
+		return chat;
+	}
+
+	public void setChat(ChatEntity chat) {
+		this.chat = chat;
 	}
 	
 }
