@@ -28,6 +28,8 @@ public class SkillOfferingEntity {
     @JsonBackReference
     
     private CategoryEntity category; 
+   
+
 
     public SkillOfferingEntity() {
         super();
@@ -40,6 +42,9 @@ public class SkillOfferingEntity {
         this.isActive = isActive;
         this.description = description;
         this.skills = skills;        
+    }
+    public Integer getCategoryId() {
+        return category != null ? category.getCategoryId() : null;
     }
 
     public int getSkillOfferingId() {
