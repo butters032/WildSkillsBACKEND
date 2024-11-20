@@ -1,6 +1,7 @@
 package com.teamwiski.wildskills.Entity;
 
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,15 +35,11 @@ public class ChatEntity{
     @JsonIgnore
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name="Chat_Student", 
-        joinColumns = {
-            @JoinColumn(name = "chat_id", referencedColumnName = "chat_id")
-        },
-        inverseJoinColumns = {
-            @JoinColumn(name = "student_id", referencedColumnName = "student_id")
-        }
+    @JoinTable(name="tblChat_Student", 
+        joinColumns = @JoinColumn(name = "chat_id", referencedColumnName = "chat_Id"),
+        inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "student_Id")
     )
-    private List<StudentEntity> student;
+    private Set<StudentEntity> students = new HashSet<>();
 
     @OneToOne(mappedBy="chat")
     @JsonBackReference
@@ -52,10 +49,10 @@ public class ChatEntity{
         super();
     }
 
-    public ChatEntity(int chatId, List<StudentEntity> student){
+    public ChatEntity(int chatId, Set<StudentEntity> students){
         super();
         this.chatId=chatId;
-        this.student = student;
+        this.students = students;
     }
     public int getChatId(){
         return chatId;
@@ -64,12 +61,12 @@ public class ChatEntity{
         this.chatId=chatId;
     }
 
-    public List<StudentEntity> getStudent() {
-        return student;
+    public Set<StudentEntity> getStudent() {
+        return students;
     }
 
-    public void setStudent(List<StudentEntity> student) {
-        this.student = student;
+    public void setStudent(Set<StudentEntity> students) {
+        this.students = students;
     }
 
     public SkillExchangeEntity getCht() {

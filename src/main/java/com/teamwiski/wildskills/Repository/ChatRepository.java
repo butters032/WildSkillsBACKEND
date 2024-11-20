@@ -10,5 +10,5 @@ import com.teamwiski.wildskills.Entity.StudentEntity;
 
 @Repository
 public interface ChatRepository extends JpaRepository<ChatEntity, Integer> {
-     List<ChatEntity> findByStudentStudentId (int studentId);
+     List<ChatEntity> findByStudentsStudentId (int studentId);
 }

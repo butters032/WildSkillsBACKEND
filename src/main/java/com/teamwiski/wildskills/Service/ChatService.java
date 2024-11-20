@@ -1,8 +1,10 @@
 package com.teamwiski.wildskills.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import javax.naming.NameNotFoundException;
 
@@ -32,9 +34,22 @@ public class ChatService {
         return chapo.save(chat);
     }
 
+    public ChatEntity postChat(ChatEntity chat, Set<Integer> studentIds) {
+        Set<StudentEntity> students = new HashSet<>(strepo.findAllById(studentIds));
+        chat.setStudent(students);
+        // Update both sides of the relationship
+        for (StudentEntity student : students) {
+            student.getChat().add(chat);
+        }
+        chat = chapo.save(chat);
+        return chat;
+    }
+    
+
     //Create Chat ith Student
-    public ChatEntity postChat(ChatEntity chat, List<Integer> studentIds){
-        List<StudentEntity> students = new ArrayList<>();
+    /* 
+    public ChatEntity postChat(ChatEntity chat, Set<Integer> studentIds){
+        Set<StudentEntity> students = new HashSet<>();
         for (int studentId : studentIds){
             StudentEntity student = strepo.findById(studentId).orElseThrow();
             students.add(student);
@@ -42,7 +57,7 @@ public class ChatService {
         chat.setStudent(students);
         return chapo.save(chat);
     }
-
+    */
     //Read
     public List<ChatEntity>getAllChat(){
         return chapo.findAll();
@@ -51,7 +66,7 @@ public class ChatService {
     //Read chat with Student
     public List<ChatEntity> getAllChat(int studentId){
         List<ChatEntity> chat = new ArrayList<>();
-        chapo.findByStudentStudentId(studentId).forEach(chat::add);
+        chapo.findByStudentsStudentId(studentId).forEach(chat::add);
         return chat;
     }
 
@@ -74,9 +89,9 @@ public class ChatService {
     }
 
     //Update Chats with Students
-    public ChatEntity putChat(int id, ChatEntity newChat, List<Integer> studentIds){
+    public ChatEntity putChat(int id, ChatEntity newChat, Set<Integer> studentIds){
         ChatEntity chat = chapo.findById(id).orElseThrow();
-        List<StudentEntity> students = new ArrayList<>();
+        Set<StudentEntity> students = new HashSet<>();
             for (int studentId : studentIds){
                 StudentEntity student = strepo.findById(studentId).orElseThrow();
                 students.add(student);

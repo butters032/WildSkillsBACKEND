@@ -2,6 +2,7 @@ package com.teamwiski.wildskills.Entity;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -56,8 +57,8 @@ public class StudentEntity {
     private AuthenticationEntity authKey;
 
     //MESSAGES OR CHATS
-    @ManyToMany(mappedBy = "student")
-    private List<ChatEntity> chat;
+    @ManyToMany(mappedBy = "students")
+    private Set<ChatEntity> chats = new HashSet<>();
     
     public String getPassword() {
         return password;
@@ -103,7 +104,7 @@ public class StudentEntity {
     }
 
     //CHAT CONSTRUCTOR
-    public StudentEntity(List<ChatEntity> chat, int studentId,String name,LocalDate birthdate,String email, String password, String gender){
+    public StudentEntity(Set<ChatEntity> chats, int studentId,String name,LocalDate birthdate,String email, String password, String gender){
         this.studentId=studentId;
         this.name=name;
         this.birthdate=birthdate;
@@ -112,7 +113,7 @@ public class StudentEntity {
         this.password=password;
         //this.age=calculateAge(birthdate, LocalDate.now());
 
-        this.chat=chat;
+        this.chats=chats;
     }
 
     public int getStudentId() {
@@ -172,11 +173,11 @@ public class StudentEntity {
         this.authKey = authKey;
     }
 
-    public List<ChatEntity> getChat() {
-        return chat;
+    public Set<ChatEntity> getChat() {
+        return chats;
     }
 
-    public void setChat(List<ChatEntity> chat) {
-        this.chat = chat;
+    public void setChat(Set<ChatEntity> chats) {
+        this.chats = chats;
     }    
 }

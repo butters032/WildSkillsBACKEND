@@ -13,5 +13,5 @@ import com.teamwiski.wildskills.Entity.StudentEntity;
 public interface StudentRepository extends JpaRepository<StudentEntity, Integer>{
 
     Optional<StudentEntity> findByEmail(String email);
-    List<StudentEntity> findByChatChatId (int chatId);
+    List<StudentEntity> findByChatsChatId (int chatId);
 }

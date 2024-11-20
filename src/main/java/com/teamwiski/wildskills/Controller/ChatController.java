@@ -1,6 +1,7 @@
 	package com.teamwiski.wildskills.Controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,7 +35,7 @@ public class ChatController {
 
     //Create with students
     @PostMapping("/students")
-    public ChatEntity postChat(@RequestBody ChatEntity chat,@RequestParam List<Integer> studentIds){
+    public ChatEntity postChat(@RequestBody ChatEntity chat,@RequestParam Set<Integer> studentIds){
         return charv.postChat(chat,studentIds);
     }
 
@@ -65,7 +66,7 @@ public class ChatController {
     
     //Update ith student
     @PutMapping("/students/{id}")
-    public ChatEntity updateChatithStudent(@PathVariable int id, @RequestBody ChatEntity chat, @RequestParam List<Integer> studentIds){
+    public ChatEntity updateChatithStudent(@PathVariable int id, @RequestBody ChatEntity chat, @RequestParam Set<Integer> studentIds){
         return charv.putChat(id,chat,studentIds);
     }
 
