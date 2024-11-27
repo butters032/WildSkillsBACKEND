@@ -2,7 +2,6 @@ package com.teamwiski.wildskills.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import javax.naming.NameNotFoundException;
 
@@ -31,11 +30,7 @@ public class CategoryService {
     }
     // Get Category by ID
     public CategoryEntity getCategoryById(int id) {
-        Optional<CategoryEntity> category = crepo.findById(id);
-        if (category.isPresent()){
-            return category.get();
-        }
-                return null;        
+        return crepo.findById(id).orElse(null);
     }
 
     //Update
@@ -59,7 +54,7 @@ public class CategoryService {
         
         if (crepo.findById(id).isPresent()) {
             crepo.deleteById(id); 
-            msg = "Cateogry deleted!";
+            msg = "Category deleted!";
         } else {
             msg = id + " NOT FOUND";
         }

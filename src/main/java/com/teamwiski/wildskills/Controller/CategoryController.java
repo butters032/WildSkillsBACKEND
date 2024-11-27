@@ -48,7 +48,7 @@ public class CategoryController {
     }
     
     //Delete
-    @DeleteMapping("/deleteCourseDetails/{id}")
+    @DeleteMapping("/deleteCategoryDetails/{id}")
     public String deleteCategory(@PathVariable int id){
         return categoryserv.deleteCategory(id);
     }

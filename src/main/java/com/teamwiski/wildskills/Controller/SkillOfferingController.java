@@ -35,6 +35,7 @@ public class SkillOfferingController {
     public List<SkillOfferingEntity>getAllSkillOfferingRecord(){
         return skillserv.getAllSkillOfferingRecord();
     }
+    
     //Update
     @PutMapping("/putSkillOfferingDetails")
     public SkillOfferingEntity putSkillOfferingDetails(@RequestParam int id, @RequestBody SkillOfferingEntity newSkillOfferingDetails ){
