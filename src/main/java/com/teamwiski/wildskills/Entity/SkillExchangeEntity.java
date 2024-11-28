@@ -7,10 +7,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -33,6 +36,10 @@ public class SkillExchangeEntity {
 	@JoinColumn (name = "student_id", referencedColumnName = "student_id")
 	@JsonIgnore
 	private StudentEntity student;
+
+	@JsonIgnore
+	@ManyToMany (mappedBy = "skillExchanges")
+    private Set<StudentEntity> students = new HashSet<>();
 
 	@OneToOne
 	@JoinColumn(name="chat_Id", referencedColumnName = "chat_Id")

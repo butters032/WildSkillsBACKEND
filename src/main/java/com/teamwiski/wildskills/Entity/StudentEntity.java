@@ -16,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
@@ -48,6 +49,12 @@ public class StudentEntity {
 
     @OneToMany (fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
     private List<SkillExchangeEntity> exchanges;
+
+    @ManyToMany
+    @JoinTable(name = "exchange_student",  
+        joinColumns = @JoinColumn(name = "student_id"), 
+        inverseJoinColumns = @JoinColumn(name = "skill_exchangeid"))
+    private Set<SkillExchangeEntity> skillExchanges = new HashSet<>();
 
 
     //AUTHENTICATION & SESSION
@@ -179,5 +186,14 @@ public class StudentEntity {
 
     public void setChat(Set<ChatEntity> chats) {
         this.chats = chats;
+    }
+
+    public Set<SkillExchangeEntity> getSkillExchanges() {
+        return skillExchanges;
+    }
+
+    public void setSkillExchanges(Set<SkillExchangeEntity> skillExchanges) {
+        this.skillExchanges = skillExchanges;
     }    
+    
 }

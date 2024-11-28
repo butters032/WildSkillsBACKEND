@@ -3,7 +3,6 @@ package com.teamwiski.wildskills.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import javax.naming.NameNotFoundException;
 
@@ -66,7 +65,7 @@ public class SkillExchangeService {
 			srepo.deleteById(id);
 			msg="SKill Exchange" + id + "successfully deleted!";
 		} else {
-			msg="SKill Exchange" + id + "not found!";
+			msg="SKill Exchange not found!";
 		}
 		return msg;
 	}

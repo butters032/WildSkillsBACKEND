@@ -72,4 +72,10 @@ public class StudentController {
     public String deleteStudentRecord(@PathVariable int id){
         return studServ.deleteStudentRecord(id);
     }
+
+    //Assign Student to Skill Exchange
+    @PutMapping("/{studentId}/skillExchange/{exchangeId}")
+    public StudentEntity assignSkillExchange(@PathVariable int studentId, @PathVariable int exchangeId) {
+        return studServ.assignSkillExchange(studentId, exchangeId);
+    }
 }

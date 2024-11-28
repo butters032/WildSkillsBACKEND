@@ -39,6 +39,7 @@ public class ChatEntity{
         joinColumns = @JoinColumn(name = "chat_id", referencedColumnName = "chat_Id"),
         inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "student_Id")
     )
+    
     private Set<StudentEntity> students = new HashSet<>();
 
     @OneToOne(mappedBy="chat")
