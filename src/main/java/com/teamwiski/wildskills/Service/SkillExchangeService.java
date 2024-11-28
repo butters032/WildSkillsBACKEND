@@ -72,11 +72,11 @@ public class SkillExchangeService {
 	}
 
 	//Read all SkillExchange by studentId
-	public List<SkillExchangeEntity> getAllSkillExchange(int studentId) {
+	/*public List<SkillExchangeEntity> getAllSkillExchange(int studentId) {
 		List<SkillExchangeEntity> skillexchange =  new ArrayList<>();
 		srepo.findByStudentStudentId(studentId).forEach(skillexchange::add);
 		return skillexchange;
-	}
+	}*/
 
 	public Set<SkillExchangeEntity> getAllSKillExchanges(int studentId) {
 		StudentEntity student = strepo.findById(studentId).orElseThrow();
