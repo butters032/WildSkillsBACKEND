@@ -3,6 +3,7 @@ package com.teamwiski.wildskills.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import javax.naming.NameNotFoundException;
 
@@ -75,6 +76,11 @@ public class SkillExchangeService {
 		List<SkillExchangeEntity> skillexchange =  new ArrayList<>();
 		srepo.findByStudentStudentId(studentId).forEach(skillexchange::add);
 		return skillexchange;
+	}
+
+	public Set<SkillExchangeEntity> getAllSKillExchanges(int studentId) {
+		StudentEntity student = strepo.findById(studentId).orElseThrow();
+		return student.getSkillExchanges();
 	}
 
 	//Read SkillExchange by studentId
