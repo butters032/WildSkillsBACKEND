@@ -196,4 +196,8 @@ public class StudentEntity {
         this.skillExchanges = skillExchanges;
     }    
     
+    public List<ReviewEntity> getReviews(){
+    	return reviews;
+    }
+    
 }
