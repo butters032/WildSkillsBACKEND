@@ -59,6 +59,11 @@ public class StudentEntity {
     //MESSAGES OR CHATS
     @ManyToMany(mappedBy = "students")
     private Set<ChatEntity> chats = new HashSet<>();
+
+    //SkillOffering
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="student",cascade=CascadeType.ALL)
+    //@JsonManagedReference
+    private List<SkillOfferingEntity> skillOfferings; 
     
     public String getPassword() {
         return password;
@@ -179,5 +184,12 @@ public class StudentEntity {
 
     public void setChat(Set<ChatEntity> chats) {
         this.chats = chats;
-    }    
+    }
+    public List<SkillOfferingEntity> getSkillOfferings() {
+        return skillOfferings;
+    }
+
+    public void setSkillOfferings(List<SkillOfferingEntity> skillOfferings) {
+        this.skillOfferings = skillOfferings;
+    }
 }
