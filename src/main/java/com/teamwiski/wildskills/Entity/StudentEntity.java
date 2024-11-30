@@ -49,6 +49,12 @@ public class StudentEntity {
     @OneToMany (fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
     private List<SkillExchangeEntity> exchanges;
 
+    @ManyToMany
+    @JoinTable(name = "exchange_student",  
+        joinColumns = @JoinColumn(name = "student_id"), 
+        inverseJoinColumns = @JoinColumn(name = "skill_exchangeid"))
+    private Set<SkillExchangeEntity> skillExchanges = new HashSet<>();
+
 
     //AUTHENTICATION & SESSION
     @OneToOne(cascade = CascadeType.ALL)
@@ -192,4 +198,17 @@ public class StudentEntity {
     public void setSkillOfferings(List<SkillOfferingEntity> skillOfferings) {
         this.skillOfferings = skillOfferings;
     }
+
+    public Set<SkillExchangeEntity> getSkillExchanges() {
+        return skillExchanges;
+    }
+
+    public void setSkillExchanges(Set<SkillExchangeEntity> skillExchanges) {
+        this.skillExchanges = skillExchanges;
+    }    
+    
+    public List<ReviewEntity> getReviews(){
+    	return reviews;
+    }
+    
 }

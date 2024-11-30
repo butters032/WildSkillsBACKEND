@@ -6,15 +6,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.naming.NameNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.teamwiski.wildskills.Entity.AuthenticationEntity;
+import com.teamwiski.wildskills.Entity.SkillExchangeEntity;
 import com.teamwiski.wildskills.Entity.StudentEntity;
 import com.teamwiski.wildskills.Repository.AuthenticationRepository;
+import com.teamwiski.wildskills.Repository.SkillExchangeRepository;
 import com.teamwiski.wildskills.Repository.StudentRepository;
 
 @Service
@@ -24,6 +29,9 @@ public class StudentService {
 
     @Autowired
     AuthenticationRepository authRepo;
+
+    @Autowired
+    SkillExchangeRepository srepo;
 
     public StudentService(){
         super();
@@ -108,5 +116,16 @@ public class StudentService {
             msg = "Student Record Not Found";
         }
         return msg;
+    }
+
+    //Assign Student to Skill Exchange
+    public StudentEntity assignSkillExchange(int studentId, int exchangeId) {
+        Set<SkillExchangeEntity> skillExchanges = null;
+        StudentEntity student = studRepo.findById(studentId).get();
+        SkillExchangeEntity skillExchange = srepo.findById(exchangeId).get();
+        skillExchanges = student.getSkillExchanges();
+        skillExchanges.add(skillExchange);
+        student.setSkillExchanges(skillExchanges);
+        return studRepo.save(student);
     }
 }

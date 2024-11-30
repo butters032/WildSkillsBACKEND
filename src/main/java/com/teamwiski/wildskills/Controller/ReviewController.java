@@ -54,4 +54,16 @@ public class ReviewController {
     public String deleteReview(@PathVariable int id) {
         return reviewServ.deleteReview(id);
     }
+    
+ // get by id
+    @GetMapping("/getStudentReviews/{studentId}/")
+    public List<ReviewEntity> getReviewsByStudentId(@PathVariable int studentId) {
+        return reviewServ.getReviewsByStudentId(studentId);
+    }
+
+    // assign
+    @PostMapping("/reviewStudent/{studentId}")
+    public ReviewEntity assignReviewToStudent(@PathVariable int studentId, @RequestBody ReviewEntity review) {
+        return reviewServ.assignReviewToStudent(studentId, review);
+    }	
 }

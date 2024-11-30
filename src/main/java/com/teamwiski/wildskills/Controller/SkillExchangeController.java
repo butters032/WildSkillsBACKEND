@@ -1,6 +1,7 @@
 package com.teamwiski.wildskills.Controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -51,9 +52,9 @@ public class SkillExchangeController {
 	}
 	
 	//Read all SkillExchange by Student
-	@GetMapping("/student/{id}")
-	public List<SkillExchangeEntity> getAllSkillExchange(@PathVariable int id) {
-		return sserv.getAllSkillExchange(id);
+	@GetMapping("/student/{studentId}")
+	public Set<SkillExchangeEntity> getAllSKillExchanges(@PathVariable int studentId) {
+		return sserv.getAllSKillExchanges(studentId);
 	}
 
 	//Read SkillExchange by Student
@@ -63,9 +64,9 @@ public class SkillExchangeController {
 	}
 
 	//Create SkillExchange by Student
-	@PostMapping("/student/{studentId}/postSkillExchange")
-	public SkillExchangeEntity postSkillExchange(@RequestBody SkillExchangeEntity skillExchange, @PathVariable int studentId) {
-		return sserv.postSkillExchange(skillExchange, studentId);
+	@PostMapping("/student/{studentId}/postSkillExchange/{creatorId}")
+	public SkillExchangeEntity postSkillExchange(@RequestBody SkillExchangeEntity skillExchange, @PathVariable int studentId, @PathVariable int creatorId) {
+		return sserv.postSkillExchange(skillExchange, studentId, creatorId);
 	}
 
 	//Update SkillExchange by Student
