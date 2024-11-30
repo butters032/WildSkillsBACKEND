@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.teamwiski.wildskills.Entity.SkillExchangeEntity;
+import com.teamwiski.wildskills.Entity.SkillOfferingEntity;
 import com.teamwiski.wildskills.Entity.StudentEntity;
 import com.teamwiski.wildskills.Repository.SkillExchangeRepository;
+import com.teamwiski.wildskills.Repository.SkillOfferingRepository;
 import com.teamwiski.wildskills.Repository.StudentRepository;
 
 @Service
@@ -19,6 +21,9 @@ public class SkillExchangeService {
 	
 	@Autowired
 	SkillExchangeRepository srepo;
+
+	@Autowired
+	SkillOfferingRepository sorepo;
 
 	@Autowired
 	StudentRepository strepo;
@@ -91,13 +96,15 @@ public class SkillExchangeService {
 
 	//Create SkillExchange by studentId
 	@SuppressWarnings("finally")
-	public SkillExchangeEntity postSkillExchange(SkillExchangeEntity skillExchange, int studentId, int creatorId) {
+	public SkillExchangeEntity postSkillExchange(SkillExchangeEntity skillExchange, int studentId, int skillOfferingId) {
 		SkillExchangeEntity newExchange = new SkillExchangeEntity();
 		try {
-			//verify student ids
+			//verify student id
 			StudentEntity student = strepo.findById(studentId).get();
-			@SuppressWarnings("unused")
-			StudentEntity creator = strepo.findById(creatorId).get();
+
+			//verify skill offering id
+			SkillOfferingEntity offering = sorepo.findById(skillOfferingId).get();
+			int creatorId = offering.getStudent().getStudentId();
 
 			//set initiator
 			skillExchange.setStudent(student);
@@ -110,7 +117,7 @@ public class SkillExchangeService {
 			stserv.assignSkillExchange(studentId, exchangeId);
 			stserv.assignSkillExchange(creatorId, exchangeId);
 		} catch (NoSuchElementException nex) {
-			throw new NameNotFoundException("Student with ID " + creatorId + " not found");
+			throw new NameNotFoundException("Skill Offering with ID " + skillOfferingId + " not found");
 		} finally {
 			return newExchange;
 		}

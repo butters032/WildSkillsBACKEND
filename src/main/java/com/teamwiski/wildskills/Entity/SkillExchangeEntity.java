@@ -55,13 +55,14 @@ public class SkillExchangeEntity {
 		super();
 	}
 	
-	public SkillExchangeEntity(int SkillExchangeID, String status, String title, LocalDateTime scheduledStart, LocalDateTime scheduledEnd, StudentEntity student) {
+	public SkillExchangeEntity(int SkillExchangeID, String status, String title, LocalDateTime scheduledStart, LocalDateTime scheduledEnd, StudentEntity student, SkillOfferingEntity offering) {
 		this.SkillExchangeID = SkillExchangeID;
 		this.status = status;
 		this.title = title;
 		this.scheduledStart = scheduledStart;
 		this.scheduledEnd = scheduledEnd;
 		this.student = student;
+		this.offering = offering;
 	}
 	
 	public int getSkillExchangeID() {
