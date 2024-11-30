@@ -1,6 +1,5 @@
 package com.teamwiski.wildskills.Entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +30,11 @@ public class SkillExchangeEntity {
 	private String title; //Title sa exchange para header sa exchange menu
 	private LocalDateTime scheduledStart;
 	private LocalDateTime scheduledEnd;
+
+	@ManyToOne
+	@JoinColumn (name = "skill_offering_id", referencedColumnName = "skill_offering_id")
+	@JsonIgnore
+	private SkillOfferingEntity offering;
 
 	@ManyToOne /*(cascade = CascadeType.ALL)*/
 	@JoinColumn (name = "student_id", referencedColumnName = "student_id")
@@ -102,6 +106,22 @@ public class SkillExchangeEntity {
 
 	public void setStudent(StudentEntity student) {
 		this.student = student;
+	}
+
+	public SkillOfferingEntity getOffering() {
+		return offering;
+	}
+
+	public void setOffering(SkillOfferingEntity offering) {
+		this.offering = offering;
+	}
+
+	public Set<StudentEntity> getStudents() {
+		return students;
+	}
+
+	public void setStudents(Set<StudentEntity> students) {
+		this.students = students;
 	}
 
 	public ChatEntity getChat() {

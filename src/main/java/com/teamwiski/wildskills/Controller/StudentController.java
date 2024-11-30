@@ -74,8 +74,8 @@ public class StudentController {
     }
 
     //Assign Student to Skill Exchange
-    @PutMapping("/{studentId}/skillExchange/{exchangeId}")
+    /*@PutMapping("/{studentId}/skillExchange/{exchangeId}")
     public StudentEntity assignSkillExchange(@PathVariable int studentId, @PathVariable int exchangeId) {
         return studServ.assignSkillExchange(studentId, exchangeId);
-    }
+    }*/
 }

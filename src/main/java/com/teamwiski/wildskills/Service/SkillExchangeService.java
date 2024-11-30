@@ -1,6 +1,5 @@
 package com.teamwiski.wildskills.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -23,6 +22,9 @@ public class SkillExchangeService {
 
 	@Autowired
 	StudentRepository strepo;
+
+	@Autowired
+	StudentService stserv;
 	
 	public SkillExchangeService() {
 		super();
@@ -60,39 +62,58 @@ public class SkillExchangeService {
 	}
 	
 	//Delete SkillExchange
+	@SuppressWarnings("unused")
 	public String deleteSkillExchange(int id) {
 		String msg="";
+
 		if (srepo.findById(id)!=null) {
 			srepo.deleteById(id);
-			msg="SKill Exchange" + id + "successfully deleted!";
+			msg="SKill Exchange successfully deleted!";
 		} else {
-			msg="SKill Exchange not found!";
+			msg="SKill Exchange"+ id +" not found!";
 		}
+		
 		return msg;
 	}
 
-	//Read all SkillExchange by studentId
-	/*public List<SkillExchangeEntity> getAllSkillExchange(int studentId) {
-		List<SkillExchangeEntity> skillexchange =  new ArrayList<>();
-		srepo.findByStudentStudentId(studentId).forEach(skillexchange::add);
-		return skillexchange;
-	}*/
+	//---- User CRUD ----//
 
+	//Read all SkillExchange by studentId
 	public Set<SkillExchangeEntity> getAllSKillExchanges(int studentId) {
-		StudentEntity student = strepo.findById(studentId).orElseThrow();
+		StudentEntity student = strepo.findById(studentId).get();
 		return student.getSkillExchanges();
 	}
 
 	//Read SkillExchange by studentId
 	public SkillExchangeEntity getSkillExchange(int studentId) {
-		return srepo.findById(studentId).orElseThrow();
+		return srepo.findById(studentId).get();
 	}
 
 	//Create SkillExchange by studentId
-	public SkillExchangeEntity postSkillExchange(SkillExchangeEntity skillExchange, int studentId) {
-		StudentEntity student = strepo.findById(studentId).orElseThrow();
-		skillExchange.setStudent(student);
-		return srepo.save(skillExchange);
+	@SuppressWarnings("finally")
+	public SkillExchangeEntity postSkillExchange(SkillExchangeEntity skillExchange, int studentId, int creatorId) {
+		SkillExchangeEntity newExchange = new SkillExchangeEntity();
+		try {
+			//verify student ids
+			StudentEntity student = strepo.findById(studentId).get();
+			@SuppressWarnings("unused")
+			StudentEntity creator = strepo.findById(creatorId).get();
+
+			//set initiator
+			skillExchange.setStudent(student);
+			newExchange = srepo.save(skillExchange);
+
+			int exchangeId = newExchange.getSkillExchangeID();
+
+			//assign to associative entity exchange_student
+			//kaduha kay duha ka students ang involved
+			stserv.assignSkillExchange(studentId, exchangeId);
+			stserv.assignSkillExchange(creatorId, exchangeId);
+		} catch (NoSuchElementException nex) {
+			throw new NameNotFoundException("Student with ID " + creatorId + " not found");
+		} finally {
+			return newExchange;
+		}
 	}
 
 	//Update SkillExchange
