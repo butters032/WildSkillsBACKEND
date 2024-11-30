@@ -19,7 +19,7 @@ import com.teamwiski.wildskills.Entity.SkillOfferingEntity;
 import com.teamwiski.wildskills.Service.SkillOfferingService;
 
 @RestController
-@RequestMapping(method=RequestMethod.GET,path="/api/wildSkills/skilloffering")
+@RequestMapping("/api/wildSkills/skilloffering")
 @CrossOrigin(origins = "http://localhost:5173")
 public class SkillOfferingController {
     @Autowired
@@ -45,6 +45,27 @@ public class SkillOfferingController {
     //Delete
     @DeleteMapping("/deleteSkillOfferingDetails/{id}")
     public String deleteSkillOffering(@PathVariable int id){
+        return skillserv.deleteSkillOffering(id);
+    }
+
+    //Create Client Side
+    @PostMapping("/student/{studentId}/postSkillOfferingRecord/client")
+    public SkillOfferingEntity postSkillOfferingRecordClient(@RequestBody SkillOfferingEntity category, @PathVariable int studentId){
+        return skillserv.postSkillOfferingRecordClient(category,studentId);
+    } 
+     //Read Client Side
+    @GetMapping("/student/{studentId}/getAllSkillOfferingRecord/client")
+    public List<SkillOfferingEntity>getAllSkillOfferingRecordClient(@PathVariable int studentId){
+        return skillserv.getAllSkillOfferingRecordClient(studentId);
+    }
+    @PutMapping("/student/{studentId}/putSkillOfferingDetails/client/{id}")
+    public SkillOfferingEntity putSkillOfferingDetailsClient(@PathVariable int studentId,@PathVariable int id,@RequestBody SkillOfferingEntity newSkillOfferingDetails) {
+        return skillserv.putSkillOfferingDetailsClient(id, newSkillOfferingDetails, studentId);
+    }
+   
+    //Delete Client Side
+    @DeleteMapping("/student/{studentId}/deleteSkillOfferingDetails/client/{id}")
+    public String deleteSkillOfferingClient(@PathVariable int studentId, @PathVariable int id){
         return skillserv.deleteSkillOffering(id);
     }
 

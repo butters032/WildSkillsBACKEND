@@ -51,13 +51,14 @@ public class SkillOfferingEntity {
         super();
     }
 
-    public SkillOfferingEntity(int skillOfferingId, String title, boolean isActive, String description, String skills) {
+    public SkillOfferingEntity(int skillOfferingId, String title, boolean isActive, String description,StudentEntity student, String skills) {
         super();
         this.skillOfferingId = skillOfferingId;
         this.title = title;
         this.isActive = isActive;
         this.description = description;
-        this.skills = skills;        
+        this.skills = skills;
+        this.student=student;        
     }
     public Integer getCategoryId() {
         return category != null ? category.getCategoryId() : null;
