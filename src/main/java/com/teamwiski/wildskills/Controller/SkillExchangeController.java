@@ -64,9 +64,9 @@ public class SkillExchangeController {
 	}
 
 	//Create SkillExchange by Student
-	@PostMapping("/student/{studentId}/postSkillExchange/{creatorId}")
-	public SkillExchangeEntity postSkillExchange(@RequestBody SkillExchangeEntity skillExchange, @PathVariable int studentId, @PathVariable int creatorId) {
-		return sserv.postSkillExchange(skillExchange, studentId, creatorId);
+	@PostMapping("/student/{studentId}/postSkillExchange/{skillOfferingId}")
+	public SkillExchangeEntity postSkillExchange(@RequestBody SkillExchangeEntity skillExchange, @PathVariable int studentId, @PathVariable int skillOfferingId) {
+		return sserv.postSkillExchange(skillExchange, studentId, skillOfferingId);
 	}
 
 	//Update SkillExchange by Student
@@ -78,6 +78,6 @@ public class SkillExchangeController {
 	//Delete SkillExchange
 	@DeleteMapping("/student/{studentId}/deleteSkillExchange/{id}")
 	public String deleteSkillExchange(@PathVariable int studentId, @PathVariable int id) {
-		return sserv.deleteSkillExchange(id);
+		return sserv.deleteSkillExchange(studentId, id);
 	}
 }

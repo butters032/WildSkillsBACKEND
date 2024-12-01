@@ -106,6 +106,10 @@ public class SkillExchangeService {
 			SkillOfferingEntity offering = sorepo.findById(skillOfferingId).get();
 			int creatorId = offering.getStudent().getStudentId();
 
+			//set skill offering
+			skillExchange.setOffering(offering);
+			skillExchange.setTitle(offering.getTitle());
+
 			//set initiator
 			skillExchange.setStudent(student);
 			newExchange = srepo.save(skillExchange);
@@ -150,11 +154,13 @@ public class SkillExchangeService {
 	}
 
 	//Delete SkillExchange by studentId
-	public String deleteSkillExchange(int id, int studentId) {
-		SkillExchangeEntity skillExchange = srepo.findById(id).orElseThrow();
+	public String deleteSkillExchange(int studentId, int id) {
+		SkillExchangeEntity skillExchange = srepo.findById(id).get();
 
 		String msg="";
 		if (srepo.findById(id)!=null && skillExchange.getStudent().getStudentId() == studentId) {
+			//delete ang mga students ug skill exchange apil associations
+			srepo.deleteAssociations(id);
 			srepo.deleteById(id);
 			msg="SKill Exchange" + id + "successfully deleted!";
 		} else if (skillExchange.getStudent().getStudentId() != studentId) {
@@ -163,5 +169,6 @@ public class SkillExchangeService {
 			msg="SKill Exchange" + id + "not found!";
 		}
 		return msg;
+
 	}
 }
