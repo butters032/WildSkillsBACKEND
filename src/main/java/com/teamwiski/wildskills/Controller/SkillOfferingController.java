@@ -69,4 +69,15 @@ public class SkillOfferingController {
         return skillserv.deleteSkillOffering(id);
     }
 
+    //Diri rani -- Search Offering Query
+    @GetMapping("/search")
+    public List<SkillOfferingEntity> searchOfferingsSQL(@RequestParam String query) {
+        return skillserv.searchOfferingsSQL(query);
+    }
+
+    //Diri rani -- Search Offering Query category filter
+    @GetMapping("/searchByCategory")
+    public List<SkillOfferingEntity> searchOfferingsByCategory(@RequestParam String query) {    
+        return skillserv.searchOfferingsByCategorySQL(query);
+    }
 }

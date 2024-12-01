@@ -3,7 +3,6 @@ package com.teamwiski.wildskills.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Set;
 
 import javax.naming.NameNotFoundException;
 
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.teamwiski.wildskills.Entity.CategoryEntity;
-import com.teamwiski.wildskills.Entity.SkillExchangeEntity;
 import com.teamwiski.wildskills.Entity.StudentEntity;
 import com.teamwiski.wildskills.Entity.SkillOfferingEntity;
 import com.teamwiski.wildskills.Repository.CategoryRepository;
@@ -144,5 +142,13 @@ public class SkillOfferingService {
 		return msg;
 	}
    
+    //Diri rani -- Search Offering Query -Samuel
+    public List<SkillOfferingEntity> searchOfferingsSQL(String query) {
+        return skillrepo.searchOfferingsSQL(query);
+    }
 
+    //Diri rani -- Search Offering Query category filter -Samuel
+    public List<SkillOfferingEntity> searchOfferingsByCategorySQL(String query) {
+        return skillrepo.searchOfferingsByCategorySQL(query);
+    }
 }
