@@ -1,5 +1,6 @@
 package com.teamwiski.wildskills.Entity;
 
+import java.sql.Blob;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.HashSet;
@@ -41,6 +42,7 @@ public class StudentEntity {
     private String email;
     private String password;
     private String gender;
+    //private Blob avatar;
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
     @JsonManagedReference
@@ -90,13 +92,14 @@ public class StudentEntity {
     }
     
     //REGISTRATION CONSTRUCTOR
-    public StudentEntity(int studentId,String name,LocalDate birthdate,String email, String password, String gender){
+    public StudentEntity(int studentId,String name,LocalDate birthdate,String email, String password, String gender/*, Blob avatar*/){
         this.studentId=studentId;
         this.name=name;
         this.birthdate=birthdate;
         this.gender=gender;
         this.email=email;
         this.password=password;
+        //this.avatar=avatar;
         
         //this.age=calculateAge(birthdate, LocalDate.now());
     }
