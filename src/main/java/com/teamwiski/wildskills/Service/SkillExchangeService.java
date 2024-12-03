@@ -1,8 +1,11 @@
 package com.teamwiski.wildskills.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.naming.NameNotFoundException;
 
@@ -60,7 +63,7 @@ public class SkillExchangeService {
 			skillExchange.setScheduledEnd(newSkillExchange.getScheduledEnd());
 			
 		} catch(NoSuchElementException nex) {
-			throw new NameNotFoundException ("Skill Exchange " + id + "not found");
+			throw new NameNotFoundException ("Skill Exchange " + id + " not found");
 		} finally {
 			return srepo.save(skillExchange);
 		}
@@ -75,7 +78,7 @@ public class SkillExchangeService {
 			srepo.deleteById(id);
 			msg="SKill Exchange successfully deleted!";
 		} else {
-			msg="SKill Exchange"+ id +" not found!";
+			msg="SKill Exchange "+ id +" not found!";
 		}
 		
 		return msg;
@@ -89,10 +92,26 @@ public class SkillExchangeService {
 		return student.getSkillExchanges();
 	}
 
-	//Read SkillExchange by studentId
-	public SkillExchangeEntity getSkillExchange(int studentId) {
-		return srepo.findById(studentId).get();
+	//Read all Completed
+	public Set<SkillExchangeEntity> getSkillExchangeCompleted(int studentId) {
+		StudentEntity student = strepo.findById(studentId).get();
+		Set<SkillExchangeEntity> exchanges = student.getSkillExchanges();
+		//get skill exchanges where exchange status is completed
+		return exchanges.stream().filter(exchange -> "Completed".equals(exchange.getStatus())).collect(Collectors.toSet());
 	}
+
+	//Read all Ongoing
+	public Set<SkillExchangeEntity> getSkillExchangeOngoing(int studentId) {
+		StudentEntity student = strepo.findById(studentId).get();
+		Set<SkillExchangeEntity> exchanges = student.getSkillExchanges();
+		//get skill exchanges where exchange status is ongoing
+		return exchanges.stream().filter(exchange -> "Ongoing".equals(exchange.getStatus())).collect(Collectors.toSet());
+	}
+
+	//Read SkillExchange by studentId
+	/*public SkillExchangeEntity getSkillExchange(int studentId) {
+		return srepo.findById(studentId).get();
+	}*/
 
 	//Create SkillExchange by studentId
 	@SuppressWarnings("finally")
@@ -109,6 +128,8 @@ public class SkillExchangeService {
 			//set skill offering
 			skillExchange.setOffering(offering);
 			skillExchange.setTitle(offering.getTitle());
+			skillExchange.setScheduledStart(LocalDateTime.now());
+			skillExchange.setScheduledEnd(LocalDateTime.now());
 
 			//set initiator
 			skillExchange.setStudent(student);
@@ -139,7 +160,7 @@ public class SkillExchangeService {
 			if (skillExchange.getStudent().getStudentId() != studentId){
 				throw new SecurityException("Unauthorized Access!");
 			} else {
-				//if ID is found, the user can set new values to all fields
+				//if ID is found set new values to all fields
 				skillExchange.setStatus(newSkillExchange.getStatus());
 				skillExchange.setTitle(newSkillExchange.getTitle());
 				skillExchange.setScheduledStart(newSkillExchange.getScheduledStart());
@@ -147,7 +168,7 @@ public class SkillExchangeService {
 			}
 			
 		} catch(NoSuchElementException nex) {
-			throw new NameNotFoundException ("Skill Exchange " + id + "not found");
+			throw new NameNotFoundException ("Skill Exchange " + id + " not found");
 		} finally {
 			return srepo.save(skillExchange);
 		}
@@ -162,7 +183,7 @@ public class SkillExchangeService {
 			//delete ang mga students ug skill exchange apil associations
 			srepo.deleteAssociations(id);
 			srepo.deleteById(id);
-			msg="SKill Exchange" + id + "successfully deleted!";
+			msg="SKill Exchange " + id + " successfully deleted!";
 		} else if (skillExchange.getStudent().getStudentId() != studentId) {
 			msg="Unauthorized Access!";
 		} else {

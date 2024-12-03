@@ -57,11 +57,23 @@ public class SkillExchangeController {
 		return sserv.getAllSKillExchanges(studentId);
 	}
 
+	//Read all Completed
+	@GetMapping("/student/{studentId}/completed")
+	public Set<SkillExchangeEntity> getSkillExchangeCompleted(@PathVariable int studentId) {
+		return sserv.getSkillExchangeCompleted(studentId);
+	}
+
+	//Read all Ongoing
+	@GetMapping("/student/{studentId}/ongoing")
+	public Set<SkillExchangeEntity> getSkillExchangeOngoing(@PathVariable int studentId) {
+		return sserv.getSkillExchangeOngoing(studentId);
+	}
+
 	//Read SkillExchange by Student
-	@GetMapping("/student/{studentId}/exchange/{id}")
+	/*@GetMapping("/student/{studentId}/exchange/{id}")
 	public SkillExchangeEntity getSkillExchange(@PathVariable int id) {
 		return sserv.getSkillExchange(id);
-	}
+	}*/
 
 	//Create SkillExchange by Student
 	@PostMapping("/student/{studentId}/postSkillExchange/{skillOfferingId}")
