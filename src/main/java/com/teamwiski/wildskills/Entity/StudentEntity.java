@@ -57,16 +57,18 @@ public class StudentEntity {
         inverseJoinColumns = @JoinColumn(name = "skill_exchangeid"))
     private Set<SkillExchangeEntity> skillExchanges = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name="chat_Student", 
+        joinColumns = @JoinColumn(name = "student_id"),
+        inverseJoinColumns = @JoinColumn(name = "chat_id"))
+    private Set<ChatEntity> chats = new HashSet<>();
 
     //AUTHENTICATION & SESSION
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="authId", referencedColumnName="authId")
     @JsonManagedReference
     private AuthenticationEntity authKey;
-
-    //MESSAGES OR CHATS
-    @ManyToMany(mappedBy = "students")
-    private Set<ChatEntity> chats = new HashSet<>();
+    
 
     //SkillOffering
     @OneToMany(fetch=FetchType.LAZY,mappedBy="student",cascade=CascadeType.ALL)
@@ -187,7 +189,7 @@ public class StudentEntity {
         this.authKey = authKey;
     }
 
-    public Set<ChatEntity> getChat() {
+    public Set<ChatEntity> getChats() {
         return chats;
     }
 
