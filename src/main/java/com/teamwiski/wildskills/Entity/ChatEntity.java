@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -27,19 +28,15 @@ import jakarta.persistence.Table;
 public class ChatEntity{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column (name = "chat_id")
+    @Column(name = "chat_Id")
     private int chatId;
 
     @OneToMany (fetch = FetchType.LAZY, mappedBy = "chat", cascade = CascadeType.ALL)
-    private List<MessageEntity> messages;   
-    @JsonIgnore
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name="tblChat_Student", 
-        joinColumns = @JoinColumn(name = "chat_id", referencedColumnName = "chat_Id"),
-        inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "student_Id")
-    )
+    @JsonManagedReference
+    private List<MessageEntity> message;   
     
+    @JsonIgnore
+    @ManyToMany(mappedBy = "chats")
     private Set<StudentEntity> students = new HashSet<>();
 
     @OneToOne(mappedBy="chat")
@@ -50,10 +47,14 @@ public class ChatEntity{
         super();
     }
 
+    public ChatEntity(int chatId, List<MessageEntity> message){
+        this.chatId = chatId;
+        this.message = message;
+    }
+
     public ChatEntity(int chatId, Set<StudentEntity> students){
-        super();
         this.chatId=chatId;
-        this.students = students;
+        this.students=students;
     }
     public int getChatId(){
         return chatId;
@@ -77,4 +78,12 @@ public class ChatEntity{
     public void setCht(SkillExchangeEntity cht) {
         this.cht = cht;
     } 
+
+    public void setMsg(List<MessageEntity> message) {
+        this.message=message;
+    }
+
+    public List<MessageEntity> getMessages(){
+        return message;
+    }
 }
