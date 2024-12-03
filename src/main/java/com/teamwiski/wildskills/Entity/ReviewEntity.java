@@ -22,9 +22,14 @@ public class ReviewEntity {
     private String comment;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id")
-    @JsonBackReference
-    private StudentEntity student;
+    @JoinColumn(name = "reviewee_id")
+    @JsonBackReference(value="reviewee")
+    private StudentEntity reviewee;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reviewer_id")
+    @JsonBackReference(value="reviewer")
+    private StudentEntity reviewer;
 
     public ReviewEntity() {
         super();
@@ -35,6 +40,15 @@ public class ReviewEntity {
         this.reviewId = reviewId;
         this.rating = rating;
         this.comment = comment;
+    }
+    
+    public ReviewEntity(int reviewId, double rating, String comment, StudentEntity reviewee, StudentEntity reviewer) {
+        super();
+        this.reviewId = reviewId;
+        this.rating = rating;
+        this.comment = comment;
+        this.reviewee = reviewee;
+        this.reviewer = reviewer;
     }
 
     public int getReviewId() {
@@ -61,7 +75,11 @@ public class ReviewEntity {
         this.comment = comment;
     }
     
-    public void setStudent(StudentEntity student) {
-    	this.student = student;
+    public void setReviewee(StudentEntity reviewee) {
+    	this.reviewee = reviewee;
+    }
+    
+    public void setReviewer(StudentEntity reviewer) {
+    	this.reviewer = reviewer;
     }
 }
