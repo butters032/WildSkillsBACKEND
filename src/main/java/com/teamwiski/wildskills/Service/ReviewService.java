@@ -79,12 +79,32 @@ public class ReviewService {
             .orElseThrow(() -> new RuntimeException("Student not found with ID: " + studentId));
         return student.getReviews();
     }
-
-    // Assign a review to a specific student
-    public ReviewEntity assignReviewToStudent(int studentId, ReviewEntity review) {
+    
+    //get Reviews made by Student
+    public List<ReviewEntity> getReviewsMadeByStudentId(int studentId) {
         StudentEntity student = srepo.findById(studentId)
             .orElseThrow(() -> new RuntimeException("Student not found with ID: " + studentId));
-        review.setStudent(student);
+        return student.getReviewsMade();
+    }
+
+    // Assign a review to a specific student
+    public ReviewEntity assignReviewToStudent(int studentId, int reviewerId, ReviewEntity review) {
+        StudentEntity reviewee = srepo.findById(studentId)
+            .orElseThrow(() -> new RuntimeException("Student not found with ID: " + studentId));
+        
+        StudentEntity reviewer = srepo.findById(reviewerId)
+                .orElseThrow(() -> new RuntimeException("Reviewer not found with ID: " + studentId));
+        
+        review.setRevieweeName(reviewee.getName());
+        review.setReviewerName(reviewer.getName());
+        review.setRevieweeId(reviewee.getStudentId());
+        review.setReviewee(reviewee);
+        review.setReviewer(reviewer);
+        
         return rrepo.save(review);
+    }
+    
+    public double findAverageRatingByStudentId(int studentId) {            
+    	return rrepo.findAverageRatingByStudentId(studentId);
     }
 }

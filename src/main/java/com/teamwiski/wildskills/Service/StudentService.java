@@ -127,4 +127,8 @@ public class StudentService {
         student.setSkillExchanges(skillExchanges);
         return studRepo.save(student);
     }
+    
+    public int searchTotalUsers() {
+    	return studRepo.searchTotalUsers();
+    }
 }

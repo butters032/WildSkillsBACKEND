@@ -53,4 +53,8 @@ public class CategoryController {
         return categoryserv.deleteCategory(id);
     }
 
+    @GetMapping("/countTotalCategories")
+    public int searchTotalCategories() {
+    	return categoryserv.searchTotalCategories();
+    }
 }

@@ -92,4 +92,14 @@ public class SkillExchangeController {
 	public String deleteSkillExchange(@PathVariable int studentId, @PathVariable int id) {
 		return sserv.deleteSkillExchange(studentId, id);
 	}
+	
+	@GetMapping("/countAllExchange")
+	public int searchTotalExchanges() {
+		return sserv.searchTotalExchanges();
+	}
+	
+	@GetMapping("/getRecentExchanges")
+	public List<SkillExchangeEntity> searchRecentExchanges(){
+		return sserv.searchRecentExchanges();
+	}
 }

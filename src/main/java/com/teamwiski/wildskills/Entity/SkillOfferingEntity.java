@@ -1,9 +1,11 @@
 package com.teamwiski.wildskills.Entity;
 
+import java.sql.Blob;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -29,37 +31,50 @@ public class SkillOfferingEntity {
     private boolean isActive;
     private String description;
     private String skills;
+    private String studentName;
+    
 
     @OneToMany (fetch = FetchType.LAZY, mappedBy = "offering", cascade = CascadeType.ALL)
     private List<SkillExchangeEntity> exchanges;
 
     @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name="categoryID")
-    @JsonBackReference
+    @JsonBackReference(value = "category")
   
     private CategoryEntity category; 
 
     @ManyToOne
 	@JoinColumn (name = "student_id", referencedColumnName = "student_id")
-	@JsonIgnore
-
+    @JsonBackReference(value = "student")
     private StudentEntity student;
-   
-
+    
+    //@JsonProperty
+    public int getStudentId(){
+        return student != null ? student.getStudentId():0;
+    }
 
     public SkillOfferingEntity() {
         super();
     }
 
-    public SkillOfferingEntity(int skillOfferingId, String title, boolean isActive, String description,StudentEntity student, String skills) {
+    public SkillOfferingEntity(int skillOfferingId, String title, boolean isActive, String description,StudentEntity student, String skills,String studentName) {
         super();
         this.skillOfferingId = skillOfferingId;
         this.title = title;
         this.isActive = isActive;
         this.description = description;
         this.skills = skills;
-        this.student=student;        
+        this.student=student; 
+        this.studentName=studentName;       
     }
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
     public Integer getCategoryId() {
         return category != null ? category.getCategoryId() : null;
     }

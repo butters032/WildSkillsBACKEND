@@ -61,4 +61,8 @@ public class CategoryService {
         
         return msg;
     }
+    
+    public int searchTotalCategories() {
+    	return crepo.searchTotalCategories();
+    }
 }
