@@ -1,5 +1,12 @@
 package com.teamwiski.wildskills.Entity;
 
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,12 +17,6 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "tblSkillExchange")
@@ -33,7 +34,7 @@ public class SkillExchangeEntity {
 
 	@ManyToOne
 	@JoinColumn (name = "skill_offering_id", referencedColumnName = "skill_offering_id")
-	@JsonIgnore
+	//@JsonIgnore
 	private SkillOfferingEntity offering;
 
 	@ManyToOne /*(cascade = CascadeType.ALL)*/
