@@ -42,6 +42,40 @@ public class StudentEntity {
     private int age;
     private String email;
     private String password;
+    private String gender;
+    //private Blob avatar;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<ReviewEntity> reviews;
+
+    @OneToMany (fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
+    private List<SkillExchangeEntity> exchanges;
+
+    @ManyToMany
+    @JoinTable(name = "exchange_student",  
+        joinColumns = @JoinColumn(name = "student_id"), 
+        inverseJoinColumns = @JoinColumn(name = "skill_exchangeid"))
+    private Set<SkillExchangeEntity> skillExchanges = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name="chat_Student", 
+        joinColumns = @JoinColumn(name = "student_id"),
+        inverseJoinColumns = @JoinColumn(name = "chat_id"))
+    private Set<ChatEntity> chats = new HashSet<>();
+
+    //AUTHENTICATION & SESSION
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="authId", referencedColumnName="authId")
+    @JsonManagedReference
+    private AuthenticationEntity authKey;
+    
+
+    //SkillOffering
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="student",cascade=CascadeType.ALL)
+    //@JsonManagedReference
+    private List<SkillOfferingEntity> skillOfferings; 
+    
     public String getPassword() {
         return password;
     }
@@ -49,8 +83,6 @@ public class StudentEntity {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    private String gender;
 
     @Lob
     private byte[] avatar;
@@ -63,29 +95,7 @@ public class StudentEntity {
         this.avatar = avatar;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<ReviewEntity> reviews;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
-    private List<SkillExchangeEntity> exchanges;
-
-    @ManyToMany
-    @JoinTable(name = "exchange_student",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "skill_exchangeid"))
-    private Set<SkillExchangeEntity> skillExchanges = new HashSet<>();
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "authId", referencedColumnName = "authId")
-    @JsonManagedReference
-    private AuthenticationEntity authKey;
-
-    @ManyToMany(mappedBy = "students")
-    private Set<ChatEntity> chats = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
-    private List<SkillOfferingEntity> skillOfferings;
 
     public StudentEntity() {}
 
@@ -190,7 +200,7 @@ public class StudentEntity {
         this.authKey = authKey;
     }
 
-    public Set<ChatEntity> getChat() {
+    public Set<ChatEntity> getChats() {
         return chats;
     }
 
