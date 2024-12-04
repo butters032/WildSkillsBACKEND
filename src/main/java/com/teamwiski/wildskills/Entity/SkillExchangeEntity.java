@@ -33,7 +33,7 @@ public class SkillExchangeEntity {
 
 	@ManyToOne
 	@JoinColumn (name = "skill_offering_id", referencedColumnName = "skill_offering_id")
-	@JsonIgnore
+	//@JsonIgnore
 	private SkillOfferingEntity offering;
 
 	@ManyToOne /*(cascade = CascadeType.ALL)*/
