@@ -8,13 +8,18 @@ import javax.naming.NameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.teamwiski.wildskills.Entity.ChatEntity;
 import com.teamwiski.wildskills.Entity.MessageEntity;
+import com.teamwiski.wildskills.Repository.ChatRepository;
 import com.teamwiski.wildskills.Repository.MessageRepository;
 
 @Service
 public class MessageService {
     @Autowired
     MessageRepository merpo;
+
+    @Autowired
+    ChatRepository chapo;
 
     public MessageService(){
         super();
@@ -58,5 +63,19 @@ public class MessageService {
         }
         
         return msg;
+    }
+
+
+    public List<MessageEntity> getMessagesByChatId(int chatId){
+        ChatEntity chat = chapo.findById(chatId)
+            .orElseThrow(()-> new RuntimeException("No chats availabe"));
+        return chat.getMessages();
+    }
+
+    public MessageEntity assignMessageToChat(int chatId, MessageEntity message){
+        ChatEntity chat = chapo.findById(chatId)
+            .orElseThrow(()-> new RuntimeException("No chats availabe"));
+        message.setChat(chat);
+        return merpo.save(message);
     }
 }

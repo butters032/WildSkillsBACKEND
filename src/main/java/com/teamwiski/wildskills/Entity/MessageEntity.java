@@ -2,11 +2,13 @@ package com.teamwiski.wildskills.Entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,9 +28,9 @@ public class MessageEntity {
     private String message;
     private LocalDateTime timeStamp;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn (name = "chat_Id")
-	@JsonIgnore
+	@JsonBackReference
     private ChatEntity chat;
 
     public MessageEntity(){

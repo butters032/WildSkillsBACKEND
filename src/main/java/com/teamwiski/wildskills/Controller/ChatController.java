@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import com.teamwiski.wildskills.Entity.ChatEntity;
+import com.teamwiski.wildskills.Entity.MessageEntity;
 import com.teamwiski.wildskills.Entity.StudentEntity;
 import com.teamwiski.wildskills.Service.ChatService;
 
@@ -24,6 +27,22 @@ import com.teamwiski.wildskills.Service.ChatService;
 @CrossOrigin(origins = "https://localhost:5173")
 @RequestMapping(method=RequestMethod.GET,path="/api/wildSkills/chat")
 public class ChatController {
+
+    private final SimpMessagingTemplate messagingTemplate;
+    private final ChatService chatService;
+
+    @Autowired
+    public ChatController(SimpMessagingTemplate messagingTemplate, ChatService chatService) {
+        this.messagingTemplate = messagingTemplate;
+        this.chatService = chatService;
+    }
+
+    @MessageMapping("/chat.sendMessage")
+    public void sendMessage(MessageEntity message) {
+        // Broadcast the message to all clients connected to the topic
+        messagingTemplate.convertAndSend("/topic/public", message);
+    }
+
     @Autowired
     ChatService charv;
 
