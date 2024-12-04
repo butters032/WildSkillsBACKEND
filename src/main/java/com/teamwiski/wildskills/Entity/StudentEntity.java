@@ -78,7 +78,7 @@ public class StudentEntity {
 
     //SkillOffering
     @OneToMany(fetch=FetchType.LAZY,mappedBy="student",cascade=CascadeType.ALL)
-    //@JsonManagedReference
+    @JsonManagedReference(value = "student")
     private List<SkillOfferingEntity> skillOfferings; 
     
     public String getPassword() {

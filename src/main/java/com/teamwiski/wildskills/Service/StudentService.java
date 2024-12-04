@@ -12,8 +12,6 @@ import javax.naming.NameNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import com.teamwiski.wildskills.Entity.AuthenticationEntity;
 import com.teamwiski.wildskills.Entity.SkillExchangeEntity;

@@ -3,6 +3,7 @@ package com.teamwiski.wildskills.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import javax.naming.NameNotFoundException;
 
@@ -38,6 +39,10 @@ public class SkillOfferingService {
     //Read
     public List<SkillOfferingEntity>getAllSkillOfferingRecord(){
         return skillrepo.findAll();
+    }
+    //Read by Id
+    public Optional<SkillOfferingEntity>findById(int id){
+        return skillrepo.findById(id);
     }
 
     //Update
@@ -80,7 +85,8 @@ public class SkillOfferingService {
     //Create Client Side
     public SkillOfferingEntity postSkillOfferingRecordClient(SkillOfferingEntity skillOffering, int studentId) {
         StudentEntity student= srepo.findById(studentId).get();
-        skillOffering.setStudent(student);      
+        skillOffering.setStudent(student);
+        skillOffering.setStudentName(student.getName());   
         return skillrepo.save(skillOffering);
 
 
@@ -95,7 +101,7 @@ public class SkillOfferingService {
 
     //Update Client Side
     @SuppressWarnings("finally")
-    public SkillOfferingEntity putSkillOfferingDetailsClient(int id, SkillOfferingEntity newSkillOfferingDetails, int studentId) {
+    public SkillOfferingEntity putSkillOfferingDetailsClient( int studentId,int id, SkillOfferingEntity newSkillOfferingDetails) {
         SkillOfferingEntity skillOffering = null; 
         try {
             // Fetch the existing skill offering by ID
