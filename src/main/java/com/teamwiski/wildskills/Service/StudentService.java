@@ -93,6 +93,7 @@ public class StudentService {
             student.setEmail(newStudent.getEmail());
             student.setPassword(newStudent.getPassword());
             student.setGender(newStudent.getGender());
+            student.setAvatar(newStudent.getAvatar());
         }catch(NoSuchElementException n){
             throw new NameNotFoundException("Student " + studId+ " not found.");
         }finally{
