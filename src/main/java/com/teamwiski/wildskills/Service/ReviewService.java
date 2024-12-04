@@ -95,9 +95,16 @@ public class ReviewService {
         StudentEntity reviewer = srepo.findById(reviewerId)
                 .orElseThrow(() -> new RuntimeException("Reviewer not found with ID: " + studentId));
         
+        review.setRevieweeName(reviewee.getName());
+        review.setReviewerName(reviewer.getName());
+        review.setRevieweeId(reviewee.getStudentId());
         review.setReviewee(reviewee);
         review.setReviewer(reviewer);
         
         return rrepo.save(review);
+    }
+    
+    public double findAverageRatingByStudentId(int studentId) {            
+    	return rrepo.findAverageRatingByStudentId(studentId);
     }
 }

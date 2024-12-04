@@ -224,5 +224,12 @@ public class StudentEntity {
     public List<ReviewEntity> getReviewsMade(){
     	return reviewsMade;
     }
-    
+
+	public void setReviews(List<ReviewEntity> reviews) {
+		this.reviews = reviews;
+	}
+
+	public void setReviewsMade(List<ReviewEntity> reviewsMade) {
+		this.reviewsMade = reviewsMade;
+	}
 }

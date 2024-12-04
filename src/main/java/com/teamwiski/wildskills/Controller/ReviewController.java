@@ -56,13 +56,13 @@ public class ReviewController {
     }
     
     // get by id
-    @GetMapping("/getStudentReviews/{studentId}/")
+    @GetMapping("/getStudentReviews/{studentId}")
     public List<ReviewEntity> getReviewsByStudentId(@PathVariable int studentId) {
         return reviewServ.getReviewsByStudentId(studentId);
     }
     
     // get reviewer list
-    @GetMapping("/getReviewsMadeByStudent/{studentId}/")
+    @GetMapping("/getReviewsMadeByStudent/{studentId}")
     public List<ReviewEntity> getReviewsMadeByStudentId(@PathVariable int studentId) {
         return reviewServ.getReviewsMadeByStudentId(studentId);
     }
@@ -72,4 +72,9 @@ public class ReviewController {
     public ReviewEntity assignReviewToStudent(@PathVariable int studentId, @PathVariable int reviewerId,@RequestBody ReviewEntity review) {
         return reviewServ.assignReviewToStudent(studentId, reviewerId, review);
     }	
+    
+    @GetMapping("/getAve/{studentId}")
+    public double findAverageRatingByStudentId(@PathVariable int studentId) {
+    	return reviewServ.findAverageRatingByStudentId(studentId);
+    }
 }
