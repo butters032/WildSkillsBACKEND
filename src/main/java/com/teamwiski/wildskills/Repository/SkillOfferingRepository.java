@@ -21,4 +21,10 @@ public interface SkillOfferingRepository extends JpaRepository<SkillOfferingEnti
         "JOIN tblcategory c ON so.categoryid = c.category_id " +
         "WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :query, '%'))", nativeQuery = true)
     List<SkillOfferingEntity> searchOfferingsByCategorySQL(String query);
+    
+    @Query(value = "SELECT * FROM tblskilloffering so ORDER BY skill_offering_id DESC LIMIT 5", nativeQuery = true)
+    List<SkillOfferingEntity> searchRecentOfferings();
+    
+    @Query(value = "SELECT COUNT(*) FROM tblskilloffering", nativeQuery = true)
+    int searchTotalOfferings();
 }

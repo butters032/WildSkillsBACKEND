@@ -33,7 +33,8 @@ public class SkillOfferingService {
     //Create
     public SkillOfferingEntity postSkillOfferingRecord(SkillOfferingEntity skillOffering) {       
         return skillrepo.save(skillOffering);
-    }    
+    } 
+    
     //Read
     public List<SkillOfferingEntity>getAllSkillOfferingRecord(){
         return skillrepo.findAll();
@@ -150,5 +151,13 @@ public class SkillOfferingService {
     //Diri rani -- Search Offering Query category filter -Samuel
     public List<SkillOfferingEntity> searchOfferingsByCategorySQL(String query) {
         return skillrepo.searchOfferingsByCategorySQL(query);
+    }
+    
+    public List<SkillOfferingEntity> searchRecentOfferings() {
+        return skillrepo.searchRecentOfferings();
+    }
+    
+    public int searchTotalOfferings() {
+    	return skillrepo.searchTotalOfferings();
     }
 }

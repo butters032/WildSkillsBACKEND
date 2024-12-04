@@ -80,4 +80,14 @@ public class SkillOfferingController {
     public List<SkillOfferingEntity> searchOfferingsByCategory(@RequestParam String query) {    
         return skillserv.searchOfferingsByCategorySQL(query);
     }
+    
+    @GetMapping("/searchRecent")
+    public List<SkillOfferingEntity> searchRecentOfferings() {
+        return skillserv.searchRecentOfferings();
+    }
+    
+    @GetMapping("/countAllOfferings")
+    public int searchTotalOfferings() {
+    	return skillserv.searchTotalOfferings();
+    }
 }
