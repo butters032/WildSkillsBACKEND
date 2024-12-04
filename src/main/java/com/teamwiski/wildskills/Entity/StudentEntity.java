@@ -18,6 +18,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -29,11 +30,11 @@ import jakarta.persistence.Table;
 // pero wala gihapon mugana
 
 @Entity
-@Table(name="tblstudent")
+@Table(name = "tblstudent")
 public class StudentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "student_id")
+    @Column(name = "student_id")
     private int studentId;
 
     private String name;
@@ -88,28 +89,38 @@ public class StudentEntity {
         this.password = password;
     }
 
-    public StudentEntity(){
-        super();
+    @Lob
+    private byte[] avatar;
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
+    }
+
+
+
+    public StudentEntity() {}
+
+    public StudentEntity(int studentId, String name, LocalDate birthdate, String email, String password, String gender, byte[] avatar) {
+        this.studentId = studentId;
+        this.name = name;
+        this.birthdate = birthdate;
+        this.gender = gender;
+        this.email = email;
+        this.password = password;
+        this.avatar = avatar;
+        //this.age = calculateAge(birthdate, LocalDate.now());
     }
 
     public static int calculateAge(LocalDate birthdate, LocalDate currentDate) {
-        Period period = Period.between(birthdate, currentDate);
-        
-          return period.getYears();
+        return Period.between(birthdate, currentDate).getYears();
     }
-    
-    //REGISTRATION CONSTRUCTOR
-    public StudentEntity(int studentId,String name,LocalDate birthdate,String email, String password, String gender/*, Blob avatar*/){
-        this.studentId=studentId;
-        this.name=name;
-        this.birthdate=birthdate;
-        this.gender=gender;
-        this.email=email;
-        this.password=password;
-        //this.avatar=avatar;
-        
-        //this.age=calculateAge(birthdate, LocalDate.now());
-    }
+
+   
+
 
     //REVIEW CONSTRUCTOR
     public StudentEntity(int studentId,String name,LocalDate birthdate,String email, String password, String gender, List<ReviewEntity> reviews){
@@ -220,6 +231,7 @@ public class StudentEntity {
     public List<ReviewEntity> getReviews(){
     	return reviews;
     }
+
     
     public List<ReviewEntity> getReviewsMade(){
     	return reviewsMade;

@@ -1,4 +1,4 @@
-	package com.teamwiski.wildskills.Controller;
+package com.teamwiski.wildskills.Controller;
 
 import java.util.List;
 import java.util.Set;
@@ -16,35 +16,44 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import com.teamwiski.wildskills.Entity.ChatEntity;
 import com.teamwiski.wildskills.Entity.MessageEntity;
 import com.teamwiski.wildskills.Entity.StudentEntity;
 import com.teamwiski.wildskills.Service.ChatService;
+import com.teamwiski.wildskills.Service.MessageService;
 
 @RestController
 @CrossOrigin(origins = "https://localhost:5173")
 @RequestMapping(method=RequestMethod.GET,path="/api/wildSkills/chat")
 public class ChatController {
-
     private final SimpMessagingTemplate messagingTemplate;
-    private final ChatService chatService;
+    private final ChatService charv;
+    private final MessageService meser;
 
     @Autowired
-    public ChatController(SimpMessagingTemplate messagingTemplate, ChatService chatService) {
+    public ChatController(SimpMessagingTemplate messagingTemplate, ChatService charv, MessageService meser) {
         this.messagingTemplate = messagingTemplate;
-        this.chatService = chatService;
+        this.charv = charv;
+        this.meser = meser;
     }
 
-    @MessageMapping("/chat.sendMessage")
-    public void sendMessage(MessageEntity message) {
-        // Broadcast the message to all clients connected to the topic
-        messagingTemplate.convertAndSend("/topic/public", message);
+    // Real-time chat messaging
+    @MessageMapping("/sendMessage")
+    @SendTo("/topic/chat")
+    public MessageEntity sendMessage(@RequestBody MessageEntity message) {
+        MessageEntity savedMessage = meser.postMessageRecord(message);
+        return savedMessage;
     }
 
-    @Autowired
-    ChatService charv;
+    @MessageMapping("/sendMessage/{chatId}")
+    public void sendMessageToChat(@PathVariable int chatId, @RequestBody MessageEntity message) {
+        MessageEntity savedMessage = meser.assignMessageToChat(chatId, message);
+        messagingTemplate.convertAndSend("/topic/chat/" + chatId, savedMessage);
+    }
+
 
     //Create
     @PostMapping("/postChatRecord")

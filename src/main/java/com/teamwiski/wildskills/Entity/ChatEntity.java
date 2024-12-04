@@ -1,6 +1,6 @@
 package com.teamwiski.wildskills.Entity;
 
-
+import java.util.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,7 +33,7 @@ public class ChatEntity{
 
     @OneToMany (fetch = FetchType.LAZY, mappedBy = "chat", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<MessageEntity> message;   
+    private List<MessageEntity> message = new ArrayList<>();   
     
     @JsonIgnore
     @ManyToMany(mappedBy = "chats")
