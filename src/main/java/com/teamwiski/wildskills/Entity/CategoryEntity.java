@@ -24,7 +24,7 @@ public class CategoryEntity {
 
     @OneToMany(fetch=FetchType.LAZY,mappedBy="category",
                 cascade=CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value = "category")
     private List<SkillOfferingEntity> skillOfferings; 
 
     public CategoryEntity() {

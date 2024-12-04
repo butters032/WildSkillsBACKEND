@@ -1,6 +1,7 @@
 package com.teamwiski.wildskills.Controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,6 +36,13 @@ public class SkillOfferingController {
     public List<SkillOfferingEntity>getAllSkillOfferingRecord(){
         return skillserv.getAllSkillOfferingRecord();
     }
+    //Read by Id
+    @GetMapping("/getSkillOfferingById/{id}")
+    public SkillOfferingEntity getSkillOfferingById(@PathVariable int id) {
+        return skillserv.findById(id).orElseThrow(() -> new NoSuchElementException("Skill Offering not found"));
+    }
+
+
     
     //Update
     @PutMapping("/putSkillOfferingDetails")
@@ -49,7 +57,7 @@ public class SkillOfferingController {
     }
 
     //Create Client Side
-    @PostMapping("/student/{studentId}/postSkillOfferingRecord/client")
+    @PostMapping("/student/{studentId}/postSkillOfferingRecord")
     public SkillOfferingEntity postSkillOfferingRecordClient(@RequestBody SkillOfferingEntity category, @PathVariable int studentId){
         return skillserv.postSkillOfferingRecordClient(category,studentId);
     } 
@@ -58,9 +66,10 @@ public class SkillOfferingController {
     public List<SkillOfferingEntity>getAllSkillOfferingRecordClient(@PathVariable int studentId){
         return skillserv.getAllSkillOfferingRecordClient(studentId);
     }
+    //Update Client Side
     @PutMapping("/student/{studentId}/putSkillOfferingDetails/client/{id}")
     public SkillOfferingEntity putSkillOfferingDetailsClient(@PathVariable int studentId,@PathVariable int id,@RequestBody SkillOfferingEntity newSkillOfferingDetails) {
-        return skillserv.putSkillOfferingDetailsClient(id, newSkillOfferingDetails, studentId);
+        return skillserv.putSkillOfferingDetailsClient(studentId,id, newSkillOfferingDetails);
     }
    
     //Delete Client Side
