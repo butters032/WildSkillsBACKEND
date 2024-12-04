@@ -18,6 +18,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -29,11 +30,11 @@ import jakarta.persistence.Table;
 // pero wala gihapon mugana
 
 @Entity
-@Table(name="tblstudent")
+@Table(name = "tblstudent")
 public class StudentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "student_id")
+    @Column(name = "student_id")
     private int studentId;
 
     private String name;
@@ -41,38 +42,6 @@ public class StudentEntity {
     private int age;
     private String email;
     private String password;
-    private String gender;
-    //private Blob avatar;
-    
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<ReviewEntity> reviews;
-
-    @OneToMany (fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
-    private List<SkillExchangeEntity> exchanges;
-
-    @ManyToMany
-    @JoinTable(name = "exchange_student",  
-        joinColumns = @JoinColumn(name = "student_id"), 
-        inverseJoinColumns = @JoinColumn(name = "skill_exchangeid"))
-    private Set<SkillExchangeEntity> skillExchanges = new HashSet<>();
-
-
-    //AUTHENTICATION & SESSION
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="authId", referencedColumnName="authId")
-    @JsonManagedReference
-    private AuthenticationEntity authKey;
-
-    //MESSAGES OR CHATS
-    @ManyToMany(mappedBy = "students")
-    private Set<ChatEntity> chats = new HashSet<>();
-
-    //SkillOffering
-    @OneToMany(fetch=FetchType.LAZY,mappedBy="student",cascade=CascadeType.ALL)
-    //@JsonManagedReference
-    private List<SkillOfferingEntity> skillOfferings; 
-    
     public String getPassword() {
         return password;
     }
@@ -81,28 +50,62 @@ public class StudentEntity {
         this.password = password;
     }
 
-    public StudentEntity(){
-        super();
+    private String gender;
+
+    @Lob
+    private byte[] avatar;
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<ReviewEntity> reviews;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
+    private List<SkillExchangeEntity> exchanges;
+
+    @ManyToMany
+    @JoinTable(name = "exchange_student",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_exchangeid"))
+    private Set<SkillExchangeEntity> skillExchanges = new HashSet<>();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "authId", referencedColumnName = "authId")
+    @JsonManagedReference
+    private AuthenticationEntity authKey;
+
+    @ManyToMany(mappedBy = "students")
+    private Set<ChatEntity> chats = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
+    private List<SkillOfferingEntity> skillOfferings;
+
+    public StudentEntity() {}
+
+    public StudentEntity(int studentId, String name, LocalDate birthdate, String email, String password, String gender, byte[] avatar) {
+        this.studentId = studentId;
+        this.name = name;
+        this.birthdate = birthdate;
+        this.gender = gender;
+        this.email = email;
+        this.password = password;
+        this.avatar = avatar;
+        //this.age = calculateAge(birthdate, LocalDate.now());
     }
 
     public static int calculateAge(LocalDate birthdate, LocalDate currentDate) {
-        Period period = Period.between(birthdate, currentDate);
-        
-          return period.getYears();
+        return Period.between(birthdate, currentDate).getYears();
     }
-    
-    //REGISTRATION CONSTRUCTOR
-    public StudentEntity(int studentId,String name,LocalDate birthdate,String email, String password, String gender/*, Blob avatar*/){
-        this.studentId=studentId;
-        this.name=name;
-        this.birthdate=birthdate;
-        this.gender=gender;
-        this.email=email;
-        this.password=password;
-        //this.avatar=avatar;
-        
-        //this.age=calculateAge(birthdate, LocalDate.now());
-    }
+
+   
+
 
     //REVIEW CONSTRUCTOR
     public StudentEntity(int studentId,String name,LocalDate birthdate,String email, String password, String gender, List<ReviewEntity> reviews){
@@ -213,5 +216,6 @@ public class StudentEntity {
     public List<ReviewEntity> getReviews(){
     	return reviews;
     }
+
     
 }
