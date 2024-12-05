@@ -1,9 +1,6 @@
 package com.teamwiski.wildskills.Entity;
 
 import java.util.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -39,10 +36,12 @@ public class ChatEntity{
     @ManyToMany(mappedBy = "chats")
     private Set<StudentEntity> students = new HashSet<>();
 
-    @OneToOne(mappedBy="chat")
-    @JsonBackReference
-    private SkillExchangeEntity cht;
+    @JsonIgnore
+    @OneToOne
+	@JoinColumn(name="skill_exchangeid", referencedColumnName = "SkillExchangeID")
+	private SkillExchangeEntity user;
 
+    
     public ChatEntity(){
         super();
     }
@@ -52,9 +51,14 @@ public class ChatEntity{
         this.message = message;
     }
 
-    public ChatEntity(int chatId, Set<StudentEntity> students){
+    public ChatEntity(int chatId, Set<StudentEntity> students, SkillExchangeEntity user){
         this.chatId=chatId;
         this.students=students;
+    }
+
+    public ChatEntity(int chatId, SkillExchangeEntity user){
+        this.chatId=chatId;
+        this.user=user;
     }
     public int getChatId(){
         return chatId;
@@ -72,11 +76,11 @@ public class ChatEntity{
     }
 
     public SkillExchangeEntity getCht() {
-        return cht;
+        return user;
     }
 
-    public void setCht(SkillExchangeEntity cht) {
-        this.cht = cht;
+    public void setCht(SkillExchangeEntity user) {
+        this.user = user;
     } 
 
     public void setMsg(List<MessageEntity> message) {

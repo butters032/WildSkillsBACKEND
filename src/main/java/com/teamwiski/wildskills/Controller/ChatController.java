@@ -29,10 +29,14 @@ import com.teamwiski.wildskills.Service.MessageService;
 @CrossOrigin(origins = "https://localhost:5173")
 @RequestMapping(method=RequestMethod.GET,path="/api/wildSkills/chat")
 public class ChatController {
-    private final SimpMessagingTemplate messagingTemplate;
-    private final ChatService charv;
-    private final MessageService meser;
+    // private final SimpMessagingTemplate messagingTemplate;
+    //private final ChatService charv;
+    //private final MessageService meser;
 
+    @Autowired
+    ChatService charv; 
+
+    /* 
     @Autowired
     public ChatController(SimpMessagingTemplate messagingTemplate, ChatService charv, MessageService meser) {
         this.messagingTemplate = messagingTemplate;
@@ -53,7 +57,7 @@ public class ChatController {
         MessageEntity savedMessage = meser.assignMessageToChat(chatId, message);
         messagingTemplate.convertAndSend("/topic/chat/" + chatId, savedMessage);
     }
-
+    */
 
     //Create
     @PostMapping("/postChatRecord")
@@ -63,8 +67,8 @@ public class ChatController {
 
     //Create with students
     @PostMapping("/students")
-    public ChatEntity postChat(@RequestBody ChatEntity chat,@RequestParam Set<Integer> studentIds){
-        return charv.postChat(chat,studentIds);
+    public ChatEntity postChat(@RequestBody ChatEntity chat,@RequestParam Set<Integer> studentIds, int skillExchangeId){
+        return charv.postChat(chat,studentIds,skillExchangeId);
     }
 
 

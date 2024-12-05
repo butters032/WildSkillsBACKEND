@@ -16,6 +16,7 @@ import com.teamwiski.wildskills.Entity.ChatEntity;
 import com.teamwiski.wildskills.Entity.SkillExchangeEntity;
 import com.teamwiski.wildskills.Entity.StudentEntity;
 import com.teamwiski.wildskills.Repository.ChatRepository;
+import com.teamwiski.wildskills.Repository.SkillExchangeRepository;
 import com.teamwiski.wildskills.Repository.StudentRepository;
 
 import jakarta.transaction.Transactional;
@@ -30,6 +31,9 @@ public class ChatService {
 
     @Autowired
     StudentService stserv;
+
+    @Autowired
+    SkillExchangeRepository srepo;
 
     public ChatService(){
         super();
@@ -75,18 +79,21 @@ public class ChatService {
 
     // Create Chat with Students
     @Transactional
-    public ChatEntity postChat(ChatEntity chat, Set<Integer> studentIds) {
+    public ChatEntity postChat(ChatEntity chat, Set<Integer> studentIds, int skillExchangeId) {
+        SkillExchangeEntity exchange = srepo.findById(skillExchangeId).get();
         List<StudentEntity> studentsList = strepo.findAllById(studentIds);
         Set<StudentEntity> students = new HashSet<>(studentsList);
-        chat.setStudent(students);
 
+        chat.setStudent(students);
+        chat.setCht(exchange);
+        
+        
         ChatEntity savedChat = chapo.save(chat);
         
         for (StudentEntity student : students) {
             student.getChats().add(savedChat);
             strepo.save(student);
         }
-    
         return savedChat;
     }
 

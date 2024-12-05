@@ -42,7 +42,6 @@ public class MessageService {
 
         try{
             mess=merpo.findById(id).get();
-            
             mess.setMessage(newMessageDetails.getMessage());
         }catch (NoSuchElementException nex){
             throw new NameNotFoundException("Message "+id+"not found");

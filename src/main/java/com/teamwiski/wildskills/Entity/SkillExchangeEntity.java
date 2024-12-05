@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -46,10 +47,9 @@ public class SkillExchangeEntity {
 	@ManyToMany (mappedBy = "skillExchanges")
     private Set<StudentEntity> students = new HashSet<>();
 
-	@OneToOne
-	@JoinColumn(name="chat_Id", referencedColumnName = "chat_Id")
-	@JsonManagedReference
-	private ChatEntity chat;
+	@JsonIgnore
+	@OneToOne(mappedBy="user")
+    private ChatEntity chat;
 
 
 	public SkillExchangeEntity() {
