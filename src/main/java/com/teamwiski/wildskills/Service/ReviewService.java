@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.teamwiski.wildskills.Entity.ReviewEntity;
+import com.teamwiski.wildskills.Entity.SkillExchangeEntity;
 import com.teamwiski.wildskills.Repository.ReviewRepository;
 
 import com.teamwiski.wildskills.Entity.StudentEntity;
@@ -88,12 +89,16 @@ public class ReviewService {
     }
 
     // Assign a review to a specific student
-    public ReviewEntity assignReviewToStudent(int studentId, int reviewerId, ReviewEntity review) {
-        StudentEntity reviewee = srepo.findById(studentId)
-            .orElseThrow(() -> new RuntimeException("Student not found with ID: " + studentId));
+    public ReviewEntity assignReviewToStudent(int reviewerId, int skillExchangeId, ReviewEntity review) {
+    	
+    	
+        StudentEntity reviewee = srepo.findById(rrepo.findReviewee(reviewerId, skillExchangeId))
+            .orElseThrow(() -> new RuntimeException("Student not found with ID"));
         
         StudentEntity reviewer = srepo.findById(reviewerId)
-                .orElseThrow(() -> new RuntimeException("Reviewer not found with ID: " + studentId));
+                .orElseThrow(() -> new RuntimeException("Reviewer not found with ID"));
+        
+       
         
         review.setRevieweeName(reviewee.getName());
         review.setReviewerName(reviewer.getName());

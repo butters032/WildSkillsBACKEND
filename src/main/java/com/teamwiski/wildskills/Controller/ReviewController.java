@@ -68,9 +68,9 @@ public class ReviewController {
     }
 
     // assign
-    @PostMapping("/reviewStudent/{reviewerId}/{studentId}")
-    public ReviewEntity assignReviewToStudent(@PathVariable int studentId, @PathVariable int reviewerId,@RequestBody ReviewEntity review) {
-        return reviewServ.assignReviewToStudent(studentId, reviewerId, review);
+    @PostMapping("/reviewStudent/{reviewerId}/{skillExchangeId}")
+    public ReviewEntity assignReviewToStudent(@PathVariable int reviewerId, @PathVariable int skillExchangeId, @RequestBody ReviewEntity review) {
+        return reviewServ.assignReviewToStudent(reviewerId, skillExchangeId, review);
     }	
     
     @GetMapping("/getAve/{studentId}")
