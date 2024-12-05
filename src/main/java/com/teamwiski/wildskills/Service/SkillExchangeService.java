@@ -190,6 +190,13 @@ public class SkillExchangeService {
 			msg="SKill Exchange" + id + "not found!";
 		}
 		return msg;
-
+	}
+	
+	public int searchTotalExchanges() {
+		return srepo.searchTotalExchanges();
+	}
+	
+	public List<SkillExchangeEntity> searchRecentExchanges(){
+		return srepo.searchRecentExchanges();
 	}
 }

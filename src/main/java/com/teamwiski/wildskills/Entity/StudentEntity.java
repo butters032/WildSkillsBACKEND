@@ -45,9 +45,14 @@ public class StudentEntity {
     private String gender;
     //private Blob avatar;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    //review sa student
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "reviewee", cascade = CascadeType.ALL)
+    @JsonManagedReference(value="reviewee")
     private List<ReviewEntity> reviews;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "reviewer", cascade = CascadeType.ALL)
+    @JsonManagedReference(value="reviewer")
+    private List<ReviewEntity> reviewsMade;
 
     @OneToMany (fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
     private List<SkillExchangeEntity> exchanges;
@@ -73,7 +78,7 @@ public class StudentEntity {
 
     //SkillOffering
     @OneToMany(fetch=FetchType.LAZY,mappedBy="student",cascade=CascadeType.ALL)
-    //@JsonManagedReference
+    @JsonManagedReference(value = "student")
     private List<SkillOfferingEntity> skillOfferings; 
     
     public String getPassword() {
@@ -228,4 +233,15 @@ public class StudentEntity {
     }
 
     
+    public List<ReviewEntity> getReviewsMade(){
+    	return reviewsMade;
+    }
+
+	public void setReviews(List<ReviewEntity> reviews) {
+		this.reviews = reviews;
+	}
+
+	public void setReviewsMade(List<ReviewEntity> reviewsMade) {
+		this.reviewsMade = reviewsMade;
+	}
 }

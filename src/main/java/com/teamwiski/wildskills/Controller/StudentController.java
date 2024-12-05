@@ -128,4 +128,10 @@ public class StudentController {
     public StudentEntity assignSkillExchange(@PathVariable int studentId, @PathVariable int exchangeId) {
         return studServ.assignSkillExchange(studentId, exchangeId);
     }*/
+    
+    
+    @GetMapping("/countTotalUsers")
+    public int searchTotalUsers() {
+    	return studServ.searchTotalUsers();
+    }
 }

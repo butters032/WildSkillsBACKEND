@@ -63,22 +63,31 @@ public class StudentService {
     }
 
     public Map<String, Object> login(String email, String password) {
-    Optional<StudentEntity> studentOpt = studRepo.findByEmail(email);
-    if (studentOpt.isPresent()) {
-        StudentEntity student = studentOpt.get();
-        if (student.getPassword().equals(password)) {
-            Map<String, Object> response = new HashMap<>();
-            response.put("status", "Login Successful");
-            response.put("studentId", student.getStudentId());
-            response.put("authId", student.getAuthKey());
-            return response;
-        } else {
-            throw new IllegalArgumentException("Invalid Password");
+        Map<String, Object> response = new HashMap<>();
+        try {
+            Optional<StudentEntity> studentOpt = studRepo.findByEmail(email);
+            if (studentOpt.isPresent()) {
+                StudentEntity student = studentOpt.get();
+                if (student.getPassword().equals(password)) {
+                    response.put("status", "Login Successful");
+                    response.put("studentId", student.getStudentId());
+                    response.put("authId", student.getAuthKey());
+                } else {
+                    response.put("status", "error");
+                    response.put("message", "Invalid Password");
+                }
+            } else {
+                response.put("status", "error");
+                response.put("message", "Email not found");
+            }
+        } catch (Exception e) {
+            response.put("status", "error");
+            response.put("message", "An error occurred during login");
+            response.put("error", e.getMessage());
         }
-    } else {
-        throw new NoSuchElementException("Email not found");
+        return response;
     }
-}
+    
 
 
 
@@ -93,6 +102,7 @@ public class StudentService {
             student.setEmail(newStudent.getEmail());
             student.setPassword(newStudent.getPassword());
             student.setGender(newStudent.getGender());
+            student.setAvatar(newStudent.getAvatar());
         }catch(NoSuchElementException n){
             throw new NameNotFoundException("Student " + studId+ " not found.");
         }finally{
@@ -125,5 +135,9 @@ public class StudentService {
         skillExchanges.add(skillExchange);
         student.setSkillExchanges(skillExchanges);
         return studRepo.save(student);
+    }
+    
+    public int searchTotalUsers() {
+    	return studRepo.searchTotalUsers();
     }
 }

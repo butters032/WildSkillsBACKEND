@@ -55,15 +55,26 @@ public class ReviewController {
         return reviewServ.deleteReview(id);
     }
     
- // get by id
-    @GetMapping("/getStudentReviews/{studentId}/")
+    // get by id
+    @GetMapping("/getStudentReviews/{studentId}")
     public List<ReviewEntity> getReviewsByStudentId(@PathVariable int studentId) {
         return reviewServ.getReviewsByStudentId(studentId);
     }
+    
+    // get reviewer list
+    @GetMapping("/getReviewsMadeByStudent/{studentId}")
+    public List<ReviewEntity> getReviewsMadeByStudentId(@PathVariable int studentId) {
+        return reviewServ.getReviewsMadeByStudentId(studentId);
+    }
 
     // assign
-    @PostMapping("/reviewStudent/{studentId}")
-    public ReviewEntity assignReviewToStudent(@PathVariable int studentId, @RequestBody ReviewEntity review) {
-        return reviewServ.assignReviewToStudent(studentId, review);
+    @PostMapping("/reviewStudent/{reviewerId}/{skillExchangeId}")
+    public ReviewEntity assignReviewToStudent(@PathVariable int reviewerId, @PathVariable int skillExchangeId, @RequestBody ReviewEntity review) {
+        return reviewServ.assignReviewToStudent(reviewerId, skillExchangeId, review);
     }	
+    
+    @GetMapping("/getAve/{studentId}")
+    public double findAverageRatingByStudentId(@PathVariable int studentId) {
+    	return reviewServ.findAverageRatingByStudentId(studentId);
+    }
 }
