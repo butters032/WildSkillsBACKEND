@@ -65,19 +65,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<<<<<<< HEAD
 		<!--
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 		</dependency>
 		-->
-=======
-		<!--<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-		</dependency>-->
->>>>>>> 14c660e709a2fdb28a57716b076d646d2991ced0
 	</dependencies>
 
 	<build>
