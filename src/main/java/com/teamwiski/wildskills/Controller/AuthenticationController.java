@@ -51,8 +51,8 @@ public class AuthenticationController{
 
     //mu update sa auth status
     @PutMapping("/putUpdateAuthenticationStatus")
-    public AuthenticationEntity updateAuthenticationStatus (@RequestParam int authId){
-        return authServ.updateAuthenticationStatus(authId);
+    public AuthenticationEntity updateAuthenticationStatus (@RequestParam int authId, @RequestBody boolean currStatus){
+        return authServ.updateAuthenticationStatus(authId,currStatus);
     }
     
 

@@ -57,10 +57,10 @@ public class AuthenticationService{
         return authRepo.save(authEntity);
     }
 
-    public AuthenticationEntity updateAuthenticationStatus (int authId){
+    public AuthenticationEntity updateAuthenticationStatus (int authId, boolean currStatus){
         AuthenticationEntity authEntity = new AuthenticationEntity(); 
         authEntity=authRepo.findById(authId).get();
-        authEntity.setAuthStatus(true);
+        authEntity.setAuthStatus(currStatus);
 
         return authRepo.save(authEntity);
     }
