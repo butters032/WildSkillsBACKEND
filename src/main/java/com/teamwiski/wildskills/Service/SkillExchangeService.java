@@ -140,6 +140,15 @@ public class SkillExchangeService {
 			//kaduha kay duha ka students ang involved
 			stserv.assignSkillExchange(studentId, exchangeId);
 			stserv.assignSkillExchange(creatorId, exchangeId);
+
+			//kuha sa ka chat
+			int chatterId = srepo.findChatter(studentId, exchangeId);
+			skillExchange.setChatterId(chatterId);
+			/*StudentEntity chatter = strepo.findById(chatterId).get();
+			Set<StudentEntity> students = new HashSet<>();
+			students.add(chatter);
+			skillExchange.setStudents(students);*/
+
 		} catch (NoSuchElementException nex) {
 			throw new NameNotFoundException("Skill Offering with ID " + skillOfferingId + " not found");
 		} finally {
@@ -199,7 +208,7 @@ public class SkillExchangeService {
 		return srepo.searchRecentExchanges();
 	}
 
-	public int findChatter(int exchangeId, int chatterId) { 
-		return srepo.findChatter(exchangeId, chatterId); 
-	}
+	/*public int findChatter(int chatterId, int exchangeId) { 
+		return srepo.findChatter(chatterId, exchangeId); 
+	}*/
 }

@@ -4,9 +4,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,6 +30,7 @@ public class SkillExchangeEntity {
 	private String title; //Title sa exchange para header sa exchange menu
 	private LocalDateTime scheduledStart;
 	private LocalDateTime scheduledEnd;
+	private int chatterId;
 
 	@ManyToOne
 	@JoinColumn (name = "skill_offering_id", referencedColumnName = "skill_offering_id")
@@ -56,7 +55,7 @@ public class SkillExchangeEntity {
 		super();
 	}
 	
-	public SkillExchangeEntity(int SkillExchangeID, String status, String title, LocalDateTime scheduledStart, LocalDateTime scheduledEnd, StudentEntity student, SkillOfferingEntity offering) {
+	public SkillExchangeEntity(int SkillExchangeID, String status, String title, LocalDateTime scheduledStart, LocalDateTime scheduledEnd, StudentEntity student, SkillOfferingEntity offering, Set<StudentEntity> students, int chatterId) {
 		this.SkillExchangeID = SkillExchangeID;
 		this.status = status;
 		this.title = title;
@@ -64,6 +63,8 @@ public class SkillExchangeEntity {
 		this.scheduledEnd = scheduledEnd;
 		this.student = student;
 		this.offering = offering;
+		this.students = students;
+		this.chatterId = chatterId;
 	}
 	
 	public int getSkillExchangeID() {
@@ -124,6 +125,14 @@ public class SkillExchangeEntity {
 
 	public void setStudents(Set<StudentEntity> students) {
 		this.students = students;
+	}
+
+	public int getChatterId() {
+		return chatterId;
+	}
+
+	public void setChatterId(int chatterId) {
+		this.chatterId = chatterId;
 	}
 
 	public ChatEntity getChat() {

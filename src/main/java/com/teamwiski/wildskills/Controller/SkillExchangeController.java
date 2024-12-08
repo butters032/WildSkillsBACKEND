@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,6 +77,7 @@ public class SkillExchangeController {
 	}*/
 
 	//Create SkillExchange by Student
+	@Transactional
 	@PostMapping("/student/{studentId}/postSkillExchange/{skillOfferingId}")
 	public SkillExchangeEntity postSkillExchange(@RequestBody SkillExchangeEntity skillExchange, @PathVariable int studentId, @PathVariable int skillOfferingId) {
 		return sserv.postSkillExchange(skillExchange, studentId, skillOfferingId);
@@ -103,8 +105,8 @@ public class SkillExchangeController {
 		return sserv.searchRecentExchanges();
 	}
 
-	@GetMapping("/findChatter") 
-	public int findChatter(@RequestParam int exchangeId, @RequestParam int reviewerId) { 
-		return sserv.findChatter(exchangeId, reviewerId); 
-	}
+	/*@GetMapping("/findChatter") 
+	public int findChatter(@RequestParam int chatterId, @RequestParam int exchangeId) { 
+		return sserv.findChatter(chatterId, exchangeId); 
+	}*/
 }
