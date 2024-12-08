@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.teamwiski.wildskills.Entity.SkillExchangeEntity;
-import com.teamwiski.wildskills.Entity.SkillOfferingEntity;
 
 @Repository
 public interface SkillExchangeRepository extends JpaRepository<SkillExchangeEntity, Integer>{
@@ -23,4 +22,7 @@ public interface SkillExchangeRepository extends JpaRepository<SkillExchangeEnti
     
     @Query(value = "SELECT COUNT(*) FROM tbl_skill_exchange", nativeQuery = true)
     int searchTotalExchanges();
+
+    @Query(value = "SELECT student_id FROM exchange_student WHERE skill_exchangeid = :exchange_id AND student_id != :chatter_id", nativeQuery = true) 
+    int findChatter(int chatter_id, int exchange_id);
 }

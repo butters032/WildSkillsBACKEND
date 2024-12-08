@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.naming.NameNotFoundException;
@@ -198,5 +197,9 @@ public class SkillExchangeService {
 	
 	public List<SkillExchangeEntity> searchRecentExchanges(){
 		return srepo.searchRecentExchanges();
+	}
+
+	public int findChatter(int exchangeId, int chatterId) { 
+		return srepo.findChatter(exchangeId, chatterId); 
 	}
 }

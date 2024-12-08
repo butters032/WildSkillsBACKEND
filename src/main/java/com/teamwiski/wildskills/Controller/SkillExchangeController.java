@@ -102,4 +102,9 @@ public class SkillExchangeController {
 	public List<SkillExchangeEntity> searchRecentExchanges(){
 		return sserv.searchRecentExchanges();
 	}
+
+	@GetMapping("/findChatter") 
+	public int findChatter(@RequestParam int exchangeId, @RequestParam int reviewerId) { 
+		return sserv.findChatter(exchangeId, reviewerId); 
+	}
 }
