@@ -1,6 +1,7 @@
 package com.teamwiski.wildskills.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -11,12 +12,15 @@ import javax.naming.NameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.teamwiski.wildskills.Entity.ChatEntity;
 import com.teamwiski.wildskills.Entity.SkillExchangeEntity;
 import com.teamwiski.wildskills.Entity.SkillOfferingEntity;
 import com.teamwiski.wildskills.Entity.StudentEntity;
+import com.teamwiski.wildskills.Repository.ChatRepository;
 import com.teamwiski.wildskills.Repository.SkillExchangeRepository;
 import com.teamwiski.wildskills.Repository.SkillOfferingRepository;
 import com.teamwiski.wildskills.Repository.StudentRepository;
+
 
 @Service
 public class SkillExchangeService {
@@ -32,7 +36,13 @@ public class SkillExchangeService {
 
 	@Autowired
 	StudentService stserv;
+
+	@Autowired
+	ChatService charv;
 	
+	@Autowired
+	ChatRepository charo;
+
 	public SkillExchangeService() {
 		super();
 	}
@@ -144,10 +154,16 @@ public class SkillExchangeService {
 			//kuha sa ka chat
 			int chatterId = srepo.findChatter(studentId, exchangeId);
 			skillExchange.setChatterId(chatterId);
-			/*StudentEntity chatter = strepo.findById(chatterId).get();
-			Set<StudentEntity> students = new HashSet<>();
-			students.add(chatter);
-			skillExchange.setStudents(students);*/
+
+			ChatEntity chat = new ChatEntity();
+
+			Set<Integer> students = new HashSet<>();
+			students.add(chatterId);
+			students.add(studentId);
+
+			chat.setCht(newExchange);	
+			charv.postChat(chat,students, exchangeId);
+			skillExchange.setChatId(chat.getChatId());
 
 		} catch (NoSuchElementException nex) {
 			throw new NameNotFoundException("Skill Offering with ID " + skillOfferingId + " not found");
@@ -191,6 +207,7 @@ public class SkillExchangeService {
 			//delete ang mga students ug skill exchange apil associations
 			srepo.deleteAssociations(id);
 			srepo.deleteById(id);
+			charo.deleteById(id);
 			msg="SKill Exchange " + id + " successfully deleted!";
 		} else if (skillExchange.getStudent().getStudentId() != studentId) {
 			msg="Unauthorized Access!";

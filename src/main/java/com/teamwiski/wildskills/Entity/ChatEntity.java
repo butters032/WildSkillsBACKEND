@@ -28,8 +28,8 @@ public class ChatEntity{
     @Column(name = "chat_Id")
     private int chatId;
 
-    @OneToMany (fetch = FetchType.LAZY, mappedBy = "chat", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany (fetch = FetchType.EAGER, mappedBy = "chat", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<MessageEntity> message = new ArrayList<>();   
     
     @JsonIgnore
