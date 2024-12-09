@@ -30,7 +30,7 @@ public class MessageEntity {
 
     @ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn (name = "chat_Id")
-	@JsonBackReference
+	@JsonIgnore
     private ChatEntity chat;
 
     public MessageEntity(){
