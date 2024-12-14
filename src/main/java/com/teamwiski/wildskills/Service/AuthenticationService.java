@@ -52,7 +52,7 @@ public class AuthenticationService{
         authEntity=authRepo.findById(authId).get();
         //authEntity.setAuthStatus(true);
         authEntity.setSessionDurationOn(LocalDateTime.now()); 
-        authEntity.setSessionDurationEnd(LocalDateTime.now().plusMinutes(10));
+        authEntity.setSessionDurationEnd(LocalDateTime.now().plusMinutes(7));
 
         return authRepo.save(authEntity);
     }
