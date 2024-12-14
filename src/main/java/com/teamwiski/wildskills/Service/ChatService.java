@@ -87,7 +87,6 @@ public class ChatService {
         chat.setStudent(students);
         chat.setCht(exchange);
         
-        
         ChatEntity savedChat = chapo.save(chat);
         
         for (StudentEntity student : students) {
@@ -96,22 +95,6 @@ public class ChatService {
         }
         return savedChat;
     }
-
-
-
-  /*  
-    // Create Chat with Students
-    public ChatEntity postChat(ChatEntity chat, Set<Integer> studentIds) {
-        Set<StudentEntity> students = new HashSet<>();
-        for (Integer id : studentIds) {
-            Optional<StudentEntity> student = strepo.findById(id);
-            student.ifPresent(students::add);
-        }
-        chat.setStudent(students);
-        return chapo.save(chat);
-    }
- */
-
 
     // Get Chat by ID
     public ChatEntity getChat(int chatId) {
@@ -137,58 +120,4 @@ public class ChatService {
         existingChat.setStudent(students);
         return chapo.save(existingChat);
     }
-
-/*
-    //Read all chats by studentId
-    public Set<ChatEntity> getAllChat(int studentId) {
-        StudentEntity student = strepo.findById(studentId).get();
-        return student.getChats();
-    }
-
-    //Read chats by studentId
-    public ChatEntity getChat(int studentId) {
-        return chapo.findById(studentId).get();
-    }
-
-    //Create Chat by StudentId
-    @SuppressWarnings("finally")
-    public ChatEntity postChat(ChatEntity chat, int studentId){
-        ChatEntity newChat = new ChatEntity();
-        try{
-            //verify student id
-			StudentEntity student = strepo.findById(studentId).get();
-
-            //verify exchangeEntity
-
-            //set exchange 
-            
-            //set initiator
-            newChat = chapo.save(chat);
-            
-            int chatId = newChat.getChatId();
-
-            //assign to associative entity exchange_student
-			//kaduha kay duha ka students ang involved
-            stserv.assignSkillExchange(studentId, chatId);
-        }catch (NoSuchElementException nex) {
-			throw new NameNotFoundException("Chat with ID " + studentId + " not found");
-		} finally {
-			return newChat;
-		}
-    }
-
-    //Update SkillExchange
-    @SuppressWarnings("finally")
-    public ChatEntity putChat(int id, ChatEntity newChat, int studentId){
-        ChatEntity chat = new ChatEntity();
-
-        try{
-            chat = chapo.findById(id).get();
-
-            if(chat.getStudent().getStudentId() != studentId){
-                throw new SecurityException("Unauthorized Access!");
-            }
-        }
-    }
-*/
 }

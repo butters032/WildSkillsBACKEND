@@ -31,6 +31,7 @@ public class SkillExchangeEntity {
 	private LocalDateTime scheduledStart;
 	private LocalDateTime scheduledEnd;
 	private int chatterId;
+	private int chatId;
 
 	@ManyToOne
 	@JoinColumn (name = "skill_offering_id", referencedColumnName = "skill_offering_id")
@@ -55,7 +56,7 @@ public class SkillExchangeEntity {
 		super();
 	}
 	
-	public SkillExchangeEntity(int SkillExchangeID, String status, String title, LocalDateTime scheduledStart, LocalDateTime scheduledEnd, StudentEntity student, SkillOfferingEntity offering, Set<StudentEntity> students, int chatterId) {
+	public SkillExchangeEntity(int SkillExchangeID, String status, String title, LocalDateTime scheduledStart, LocalDateTime scheduledEnd, StudentEntity student, SkillOfferingEntity offering, Set<StudentEntity> students, int chatterId, int chatId) {
 		this.SkillExchangeID = SkillExchangeID;
 		this.status = status;
 		this.title = title;
@@ -65,6 +66,7 @@ public class SkillExchangeEntity {
 		this.offering = offering;
 		this.students = students;
 		this.chatterId = chatterId;
+		this.chatId = chatId;
 	}
 	
 	public int getSkillExchangeID() {
@@ -142,5 +144,12 @@ public class SkillExchangeEntity {
 	public void setChat(ChatEntity chat) {
 		this.chat = chat;
 	}
-	
+
+	public int getChatId() {
+		return chatId;
+	}
+
+	public void setChatId(int chatId) {
+		this.chatId = chatId;
+	}
 }

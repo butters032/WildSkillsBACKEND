@@ -29,30 +29,26 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 @RequestMapping(method=RequestMethod.GET,path="/api/wildSkills/message/")
 public class MessageController {
     private final SimpMessagingTemplate messagingTemplate;
-    private final ChatService charv;
     private final MessageService mserv;
     
     @Autowired
     public MessageController(SimpMessagingTemplate messagingTemplate, ChatService charv, MessageService mserv){
         this.messagingTemplate = messagingTemplate;
-        this.charv = charv;
         this.mserv = mserv;
     }
-
-    @MessageMapping("/sendMessage")
-    @SendTo("/topic/chat")
+    
+    @MessageMapping("/sendMessage/")
+    @SendTo("/topic/chat/")
     public MessageEntity sendMessage(MessageEntity message) {
         MessageEntity savedMessage = mserv.postMessageRecord(message);
         return savedMessage;
     }
- 
+    
     @MessageMapping("/sendMessage/{chatId}")
-    public void sendMessageToChat(@PathVariable int chatId,MessageEntity message) {
+    public void sendMessageToChat(@PathVariable int chatId, MessageEntity message) {
         MessageEntity savedMessage = mserv.assignMessageToChat(chatId, message);
         messagingTemplate.convertAndSend("/topic/chat/" + chatId, savedMessage);
     }
-
-
 
     // Create a new message and assign it to a chat
     @PostMapping("/saveMessage")

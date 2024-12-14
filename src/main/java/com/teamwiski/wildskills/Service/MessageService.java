@@ -66,15 +66,17 @@ public class MessageService {
 
 
     public List<MessageEntity> getMessagesByChatId(int chatId){
-        ChatEntity chat = chapo.findById(chatId)
-            .orElseThrow(()-> new RuntimeException("No chats availabe"));
-        return chat.getMessages();
+        return merpo.findMessagesByChatId(chatId);
     }
 
     public MessageEntity assignMessageToChat(int chatId, MessageEntity message){
         ChatEntity chat = chapo.findById(chatId)
             .orElseThrow(()-> new RuntimeException("No chats availabe"));
         message.setChat(chat);
+
+        chat.getMessages().add(message);
+        chapo.save(chat);
+        
         return merpo.save(message);
     }
 }
