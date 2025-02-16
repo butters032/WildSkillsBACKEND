@@ -1,12 +1,12 @@
 package com.teamwiski.wildskills.Entity;
 
-import java.sql.Blob;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -53,20 +53,23 @@ public class StudentEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reviewer", cascade = CascadeType.ALL)
     @JsonManagedReference(value="reviewer")
     private List<ReviewEntity> reviewsMade;
-
+    
     @OneToMany (fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<SkillExchangeEntity> exchanges;
 
     @ManyToMany
     @JoinTable(name = "exchange_student",  
         joinColumns = @JoinColumn(name = "student_id"), 
         inverseJoinColumns = @JoinColumn(name = "skill_exchangeid"))
+    @JsonIgnore
     private Set<SkillExchangeEntity> skillExchanges = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name="chat_Student", 
         joinColumns = @JoinColumn(name = "student_id"),
         inverseJoinColumns = @JoinColumn(name = "chat_id"))
+    @JsonIgnore
     private Set<ChatEntity> chats = new HashSet<>();
 
     //AUTHENTICATION & SESSION
