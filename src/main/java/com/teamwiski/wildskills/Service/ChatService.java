@@ -1,11 +1,10 @@
 package com.teamwiski.wildskills.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Set;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.naming.NameNotFoundException;
 
